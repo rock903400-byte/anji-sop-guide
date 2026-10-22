@@ -1,0 +1,1755 @@
+# -*- coding: utf-8 -*-
+"""
+Generates the staff-friendly, ATM-style Step-by-Step Wizard `index.html`.
+Designed specifically for frontline staff (專職人員) with zero learning curve:
+1. Home screen asks ONE simple question: "請問您現在要辦什麼作業？"
+2. If "新加保" or "續保", asks a simple sub-question (e.g. how is the member paying?)
+   and automatically sequences the exact cross-system slides into ONE straight line
+   (for example, putting Accounting Voucher Creation P.112~119 FIRST for 應付代收!).
+3. Step-by-step wizard view shows ONE big screenshot at a time, ONE big plain-spoken
+   instruction, giant red warning banners ("🛑 停！現在請找主管審核..."), and giant
+   Prev / Next buttons.
+"""
+
+import json
+import os
+
+WORKSPACE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUTPUT_HTML = os.path.join(WORKSPACE_DIR, "index.html")
+
+WIZARD_FLOWS = {
+    # =========================================================================
+    # 1A. 新加保 — 現金收款 (直線 14 步)
+    # =========================================================================
+    "new_cash": {
+        "title": "🙋‍♂️ 新加保（💵 社員現場付現金）",
+        "subtitle": "系統已幫您把「安基建檔」到「臨櫃收現金」排成一條直線，請跟著一步一步點：",
+        "steps": [
+            {
+                "page": 4,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "先點右上角【切換】➔ 再點【安基作業】",
+                "desc": "確認目前系統在【安基作業】模組。",
+                "stopAlert": ""
+            },
+            {
+                "page": 9,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選左邊選單的【協會代辦互助基金】➔【加保申請名冊】",
+                "desc": "進入加保申請名冊管理畫面。",
+                "stopAlert": ""
+            },
+            {
+                "page": 13,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選畫面右上角的【＋】按鈕（新增）",
+                "desc": "畫面上會跳出【新加保】的建檔視窗。",
+                "stopAlert": ""
+            },
+            {
+                "page": 14,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "選擇【申請方案】（選擇保險年度如 115、以及計畫一～五）",
+                "desc": "先選年度，再選這位社員要保哪一個計畫方案。",
+                "stopAlert": ""
+            },
+            {
+                "page": 15,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選【申請人】（請選擇社員）",
+                "desc": "搜尋並選取這次要加保的社員。",
+                "stopAlert": ""
+            },
+            {
+                "page": 17,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "確認帶出來的社員基本資料，並填寫【職業】與【職稱】",
+                "desc": "檢查身分證、生日等資料，並把紅框處的【職業】、【職稱】填上。",
+                "stopAlert": ""
+            },
+            {
+                "page": 19,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "選擇【受益人分配方式】並填寫受益人資料",
+                "desc": "若選「法定繼承人」免填下方明細；若指定受益人只有 1 位，選「平均分配」或「依照順序」都可以，並在下方填寫受益人資料。",
+                "stopAlert": ""
+            },
+            {
+                "page": 20,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "輸入【獎勵或補助／其他扣除金額】，並選擇【預計生效日】",
+                "desc": "沒有補助就填 0，並選好預計生效日期。",
+                "stopAlert": ""
+            },
+            {
+                "page": 22,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "【付款方式】請選【現金收款】，然後先點【暫存】再按【送出】",
+                "desc": "社員現場繳現（沒有預收款）就是選【現金收款】！選好後點右下角【暫存】➔【送出】。",
+                "stopAlert": "💡 安基建檔完成了！但還沒收錢喔！請按下一步，我們現在要去【臨櫃作業】幫社員收現金、印收款單！"
+            },
+            {
+                "page": 98,
+                "module": "臨櫃作業",
+                "switchAlert": True,
+                "title": "🔄 切換系統：請點右上角【切換】➔ 改點【臨櫃作業】",
+                "desc": "現金收款必須到【臨櫃作業】模組裡面操作。",
+                "stopAlert": ""
+            },
+            {
+                "page": 100,
+                "module": "臨櫃作業",
+                "switchAlert": False,
+                "title": "點選【社員搜尋】➔ 輸入這位社員的【社員帳號】",
+                "desc": "輸入帳號查詢剛剛那位加保的社員。",
+                "stopAlert": ""
+            },
+            {
+                "page": 101,
+                "module": "臨櫃作業",
+                "switchAlert": False,
+                "title": "找到該位社員後，點選右邊的【選擇】",
+                "desc": "進入這位社員的臨櫃作業畫面。",
+                "stopAlert": ""
+            },
+            {
+                "page": 104,
+                "module": "臨櫃作業",
+                "switchAlert": False,
+                "title": "點選【現金收款作業】➔ 把其他無關的收款項目點【移除】！",
+                "desc": "系統會自動帶出這筆代辦互助基金的金額，但社員名下如果有其他待繳項目也會一起跑出來。",
+                "stopAlert": "🛑 重點防呆！請務必把「不是這次互助基金」的其他項目點右邊的【移除】刪掉，只留下這次要收的互助基金！"
+            },
+            {
+                "page": 106,
+                "module": "臨櫃作業",
+                "switchAlert": False,
+                "title": "點選【確認收款並列印收款單】➔ 顯示開立成功並印出傳票！",
+                "desc": "收款完成！如果還有其他社員要加保，請重複此流程；如果全部社員都建好名冊了，請回主選單點「📤 合併送件＋送協會＋請款」。",
+                "stopAlert": ""
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 1B. 新加保 — 備轉金 (直線 12 步)
+    # =========================================================================
+    "new_reserve": {
+        "title": "🙋‍♂️ 新加保（🏦 扣社員備轉金）",
+        "subtitle": "系統已幫您把「安基建檔選備轉金」到「會計確認傳票」排成一條直線：",
+        "steps": [
+            {
+                "page": 4,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "先點右上角【切換】➔ 再點【安基作業】",
+                "desc": "確認目前系統在【安基作業】模組。",
+                "stopAlert": ""
+            },
+            {
+                "page": 9,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選左邊選單的【協會代辦互助基金】➔【加保申請名冊】",
+                "desc": "進入加保申請名冊管理畫面。",
+                "stopAlert": ""
+            },
+            {
+                "page": 13,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選畫面右上角的【＋】按鈕（新增）",
+                "desc": "畫面上會跳出【新加保】的建檔視窗。",
+                "stopAlert": ""
+            },
+            {
+                "page": 14,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "選擇【申請方案】（選擇保險年度與計畫方案）",
+                "desc": "先選年度，再選這位社員要保哪一個子方案。",
+                "stopAlert": ""
+            },
+            {
+                "page": 15,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選【申請人】（請選擇社員）",
+                "desc": "選取這次要加保的社員。",
+                "stopAlert": ""
+            },
+            {
+                "page": 17,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "確認社員基本資料，並填寫【職業】與【職稱】",
+                "desc": "把紅框處的【職業】、【職稱】填寫完整。",
+                "stopAlert": ""
+            },
+            {
+                "page": 19,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "選擇【受益人分配方式】並填寫受益人資料",
+                "desc": "若指定受益人只有 1 位，選「平均分配」或「依照順序」皆可。",
+                "stopAlert": ""
+            },
+            {
+                "page": 20,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "輸入【獎勵或補助／其他扣除金額】，並選擇【預計生效日】",
+                "desc": "設定保單預計生效日。",
+                "stopAlert": ""
+            },
+            {
+                "page": 107,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "【付款方式】請選【備轉金】，確認下方有結餘後，先點【暫存】再按【送出】",
+                "desc": "送出後系統會自動產生一張備轉金轉帳傳票！接下來我們要去【會計作業】把這張傳票確認印出來。",
+                "stopAlert": ""
+            },
+            {
+                "page": 108,
+                "module": "會計作業",
+                "switchAlert": True,
+                "title": "🔄 切換系統：請點右上角【切換】➔ 改點【會計作業】",
+                "desc": "切換到【會計作業】模組。",
+                "stopAlert": ""
+            },
+            {
+                "page": 109,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "點選左邊選單的【傳票確認作業】",
+                "desc": "進入傳票確認列表。",
+                "stopAlert": "🛑 如果這裡找不到剛剛那張傳票，請通知【主管】先到他的【審核作業】把互助基金相關傳票審核通過，審過後這裡才會出現！"
+            },
+            {
+                "page": 110,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "找到剛剛那張傳票，點選右邊的【通過並列印】即完成！",
+                "desc": "畫面會顯示開立成功！這筆備轉金加保就完成了。",
+                "stopAlert": ""
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 1C. 新加保 — 應付代收 (已幫專職把「先去會計開傳票」排在最前面！共 17 步)
+    # =========================================================================
+    "new_payable": {
+        "title": "🙋‍♂️ 新加保（🔄 從活存轉【應付代收】）",
+        "subtitle": "⚠️ 最重要！選「應付代收」必須【先去會計作業開傳票】把錢轉進代收科目，安基才會有結餘！我們已經幫您把順序排好了，請直接照著第 1 步做：",
+        "steps": [
+            {
+                "page": 112,
+                "module": "會計作業",
+                "switchAlert": True,
+                "title": "【第 1 階段：先開傳票】點右上角【切換】➔ 先去【會計作業】！",
+                "desc": "別急著去安基建檔！因為還沒開傳票前，安基的「應付代收結餘」會是 0。請先切換到【會計作業】。",
+                "stopAlert": "💡 為什麼先來會計作業？因為要先把社員活期存款的錢轉到「代收互助基金」，等等去安基建檔才不會卡住！"
+            },
+            {
+                "page": 113,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "點選左邊【傳票管理】➔【開立傳票】（選擇：支出轉帳傳票）",
+                "desc": "準備開立一張支出轉帳傳票。",
+                "stopAlert": ""
+            },
+            {
+                "page": 114,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "點選【新增傳票項目】（準備輸入第 1 筆：借方）",
+                "desc": "點擊畫面上的藍色【新增傳票項目】按鈕。",
+                "stopAlert": ""
+            },
+            {
+                "page": 115,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "輸入第 1 筆（借方）：選社員帳號、科目選【11211 活期存款】、輸入金額、選【借方】按確定",
+                "desc": "1. 對象選【社員】並輸入社員帳號 ➔ 2. 科目依需求選（如 11211 活期存款）➔ 3. 輸入保費金額 ➔ 4. 選【借方】➔ 5. 按【確定】。",
+                "stopAlert": ""
+            },
+            {
+                "page": 116,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "再次點選【新增傳票項目】（準備輸入第 2 筆：貸方）",
+                "desc": "現在要輸入轉入哪一個互助基金代收科目。",
+                "stopAlert": ""
+            },
+            {
+                "page": 117,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "輸入第 2 筆（貸方）：科目選對應的【代收互助基金】、輸入相同金額、選【貸方】按確定",
+                "desc": "例如：意外險選【21514 代收社員意外互助基金】、重大疾病選【21515 代收重大疾病互助基金】，金額跟借方一樣，選【貸方】按【確定】。",
+                "stopAlert": ""
+            },
+            {
+                "page": 118,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "確認借方、貸方金額一樣（平衡）後，點選右下角【送出】",
+                "desc": "畫面會顯示「開立成功」(P.119)！現在錢已經轉入代收科目了，我們可以去【安基作業】建檔囉！",
+                "stopAlert": ""
+            },
+            {
+                "page": 4,
+                "module": "安基作業",
+                "switchAlert": True,
+                "title": "🔄【第 2 階段：回安基建檔】點右上角【切換】➔ 改點【安基作業】",
+                "desc": "切換回【安基作業】模組。",
+                "stopAlert": ""
+            },
+            {
+                "page": 13,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選左邊【協會代辦互助基金】➔【加保申請名冊】➔ 點右上角【＋】新增",
+                "desc": "打開【新加保】視窗。",
+                "stopAlert": ""
+            },
+            {
+                "page": 14,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "選擇【申請方案】（保險年度、計畫方案）與【申請人】（選擇剛剛那位社員）",
+                "desc": "選好方案與同一位社員。",
+                "stopAlert": ""
+            },
+            {
+                "page": 17,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "填寫社員【職業】、【職稱】，並選好【受益人】與【預計生效日】",
+                "desc": "依序填寫職業職稱 (P.17)、受益人分配方式 (P.19) 與預計生效日 (P.20)。",
+                "stopAlert": ""
+            },
+            {
+                "page": 120,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "【付款方式】選【應付代收】➔ 檢查下方【結餘】有剛剛的金額 ➔ 先點【暫存】再按【送出】！",
+                "desc": "因為剛剛第 1 階段已經開過傳票了，所以這裡的【結餘】會直接顯示金額！確認有金額後，先點【暫存】再按【送出】。",
+                "stopAlert": "💡 還沒完喔！安基送出後，最後一步要回【會計作業】把剛剛那張傳票按【通過並列印】！"
+            },
+            {
+                "page": 121,
+                "module": "會計作業",
+                "switchAlert": True,
+                "title": "🔄【第 3 階段：回會計確認傳票】點右上角【切換】➔ 改點【會計作業】",
+                "desc": "再次切換到【會計作業】。",
+                "stopAlert": ""
+            },
+            {
+                "page": 123,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "點選左邊【傳票確認作業】➔ 找到剛剛那張傳票，點選【通過並列印】！",
+                "desc": "畫面顯示開立成功 (P.124)，這筆應付代收的新加保就徹底完成囉！",
+                "stopAlert": "🛑 如果在【傳票確認作業】沒看到傳票，請叫【主管】去【審核作業】審核通過就會出現了！"
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 2A. 續保 — 直接匯入續約名冊（不需改資料）
+    # =========================================================================
+    "renew_direct": {
+        "title": "📋 年度續保（⚡ 直接匯入續約名冊、資料不用改）",
+        "subtitle": "把去年的續保名單整批匯入，並批次送出：",
+        "steps": [
+            {
+                "page": 27,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "在【安基作業 ➔ 加保申請名冊】點選上方【匯入續約名冊】",
+                "desc": "先進入該互助基金的【加保申請名冊】，點選藍色的【匯入續約名冊】按鈕。",
+                "stopAlert": ""
+            },
+            {
+                "page": 28,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "選擇要續保的【年度】，再點選【匯入】",
+                "desc": "系統會帶出符合續約資格的社員名單。",
+                "stopAlert": ""
+            },
+            {
+                "page": 29,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "把這次要續約的社員【打勾】起來",
+                "desc": "勾選要續保的社員。",
+                "stopAlert": ""
+            },
+            {
+                "page": 30,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選【確認送出加保申請】➔ 再點【回到加保申請名冊】",
+                "desc": "這樣續約名單就匯入到加保申請名冊裡了 (P.31)。",
+                "stopAlert": ""
+            },
+            {
+                "page": 46,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "檢查有沒有狀態是「未送出」的資料，勾起來按【批次送出】",
+                "desc": "把所有「未送出」的社員打勾，點上方【批次送出】，讓大家的狀態都變成【已送出】(P.47)。",
+                "stopAlert": "💡 續保名冊都變成【已送出】後，請回主選單點「📤 合併送件＋送協會＋請款」繼續往下做！"
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 2B. 續保/調整 — 單筆手動修改（只改 1~2 位社員）
+    # =========================================================================
+    "renew_edit_single": {
+        "title": "✏️ 修改社員加保資料（只改 1～2 位社員，直接手動改）",
+        "subtitle": "例如：匯入續約名冊後，想把某一位社員的付款方式從「現金收款」改成「應付代收」：",
+        "steps": [
+            {
+                "page": 32,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "在【加保申請名冊】找到要修改的那位社員，點右邊的「綠色鉛筆」圖示",
+                "desc": "打開該位社員的加保資料編輯畫面。",
+                "stopAlert": ""
+            },
+            {
+                "page": 34,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "往下拉到【付款方式】下拉選單，改成您要的方式（例如：應付代收）",
+                "desc": "如果要改成【應付代收】，記得也要先去【會計作業】開轉帳傳票讓下方【結餘】有錢喔！",
+                "stopAlert": ""
+            },
+            {
+                "page": 35,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "改好後，先點選【暫存】，再按【送出】",
+                "desc": "務必先按【暫存】再按【送出】！",
+                "stopAlert": ""
+            },
+            {
+                "page": 37,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "回到【加保申請名冊】，確認這位社員的狀態已經變成【已送出】！",
+                "desc": "這樣單筆修改就完成囉！",
+                "stopAlert": ""
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 2C. 續保/調整 — 多筆 Excel 匯出修改再匯入（改很多位社員）
+    # =========================================================================
+    "renew_edit_batch": {
+        "title": "📊 整批修改很多位社員資料（匯出 Excel 改完再匯入）",
+        "subtitle": "當有好幾十位社員都要把「現金收款」改成「應付代收」時，用 Excel 整批改最快：",
+        "steps": [
+            {
+                "page": 38,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "在【加保申請名冊】先把要修改的社員資料全部【打勾】起來",
+                "desc": "可點左上角全選方框，或勾選要修改的社員。",
+                "stopAlert": ""
+            },
+            {
+                "page": 39,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選上方的【匯出名冊】，從瀏覽器右上角打開下載的 Excel 檔",
+                "desc": "系統會把勾選的社員匯出成一個 Excel 檔案。",
+                "stopAlert": ""
+            },
+            {
+                "page": 41,
+                "module": "Excel批次",
+                "switchAlert": False,
+                "title": "在 Excel 裡面把「付款方式」整批改成【應付代收】，然後按【存檔】",
+                "desc": "把原本的「現金收款」(P.40) 複製貼上改成「應付代收」(P.41)，改好後存檔關閉 Excel。",
+                "stopAlert": ""
+            },
+            {
+                "page": 43,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "回到系統點選【匯入名冊】➔ 選擇剛剛改好存檔的 Excel 檔案上傳",
+                "desc": "畫面跳出「儲存成功」(P.44)！",
+                "stopAlert": ""
+            },
+            {
+                "page": 46,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "最後把狀態還是「未送出」的資料勾起來，按【批次送出】！",
+                "desc": "確認所有社員的狀態都變成【已送出】(P.47) 就完成囉！",
+                "stopAlert": ""
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 3. 合併送件 ＋ 送協會 ＋ 建立請款單 (直線 13 步)
+    # =========================================================================
+    "merge_and_claim": {
+        "title": "📤 名冊都建好了：【合併送件 ＋ 送協會 ＋ 建立請款單】",
+        "subtitle": "當所有加保／續保社員的狀態都變成「已送出」且收完款後，請照這 13 步送交協會並請款：",
+        "steps": [
+            {
+                "page": 50,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "在【加保申請名冊】點左上角 `☐` 全選 ➔ 先點【預覽名冊】下載 PDF 檢查",
+                "desc": "先打開右上角下載的 PDF 名冊 (P.51~52)，把所有社員的名字、方案、受益人檢查一遍。",
+                "stopAlert": "🛑 為什麼現在一定要檢查？因為等一下點了【送至協會】之後如果發現打錯，不能在電腦上退回，只能送紙本改（要等 1 個月）！"
+            },
+            {
+                "page": 56,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "確認沒錯後，點左上角 `☐` 全選 ➔ 點選上方的【合併送件】",
+                "desc": "畫面會跳出「儲存成功，需至加退保合併送件，進行後續流程」(P.57)。",
+                "stopAlert": ""
+            },
+            {
+                "page": 59,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點左邊選單【加退保合併送件】➔ 點剛剛那筆資料右邊的「綠色鉛筆」圖示",
+                "desc": "進入這批合併送件的明細畫面。",
+                "stopAlert": ""
+            },
+            {
+                "page": 60,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選【列印名冊】與【產生繳費清單】，把兩個檔案都下載下來確認",
+                "desc": "分別點【列印名冊】(P.60~62) 跟【產生繳費清單】(P.63~65)，確認社員繳費情形都正確。",
+                "stopAlert": ""
+            },
+            {
+                "page": 66,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選【確認名單，送主管審查】",
+                "desc": "點下去後，畫面狀態會變成【已送出審查】(P.67)。",
+                "stopAlert": "🛑 停！現在請通知您的【主管】去他的「審核作業」把這筆名單（還有相關傳票）審核通過！主管沒審完之前，您畫面上絕對不會出現【送至協會】按鈕喔！(P.68)"
+            },
+            {
+                "page": 69,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "等主管審核通過後，重新點進這筆【加退保合併送件】➔ 點選【送至協會】！",
+                "desc": "點下去後，畫面狀態就會變成【已送至協會】(P.70)！接著馬上點旁邊的【建立請款單】。",
+                "stopAlert": ""
+            },
+            {
+                "page": 72,
+                "module": "請款作業",
+                "switchAlert": True,
+                "title": "🔄 點選【建立請款單】（系統會自動跳到【請款作業】）",
+                "desc": "準備幫這批要繳給協會的互助費建立請款單。",
+                "stopAlert": ""
+            },
+            {
+                "page": 73,
+                "module": "請款作業",
+                "switchAlert": False,
+                "title": "步驟 1：選擇用【零用金】或【匯款】支付，填寫用途說明後點【下一步】",
+                "desc": "填寫請款單基本資料。",
+                "stopAlert": ""
+            },
+            {
+                "page": 74,
+                "module": "主管審核",
+                "switchAlert": False,
+                "title": "步驟 2：列印請款單紙本給主管簽核，並在畫面上輸入【主管審查結果】",
+                "desc": "完成紙本送審與登錄審查結果。",
+                "stopAlert": ""
+            },
+            {
+                "page": 75,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "步驟 3：進入「3.會計開立傳票」，點選【開立傳票】",
+                "desc": "準備開立墊付傳票。",
+                "stopAlert": ""
+            },
+            {
+                "page": 77,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "點【新增傳票項目】輸入借貸方科目（借：11514 團體意外險墊款 ／ 貸：110122 零用金或銀行存款）",
+                "desc": "確認借方、貸方金額平衡後，點選右下角【送出】(P.78)，顯示【開立成功】即可列印傳票 (P.79~80)！",
+                "stopAlert": ""
+            },
+            {
+                "page": 84,
+                "module": "安基作業",
+                "switchAlert": True,
+                "title": "🔄 最後回【安基作業 ➔ 帳務處理】查看核保狀態（目前會顯示：處理中）",
+                "desc": "請款完成！現在只要等協會核保通過，這裡的狀態從【處理中】變成【加保通過】(P.85)，就可以回來做最後的「自動沖銷」囉！",
+                "stopAlert": ""
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 4. 核保通過後 — 自動沖銷結案 (直線 7 步)
+    # =========================================================================
+    "writeoff": {
+        "title": "✅ 協會核保通過了：【自動沖銷結案】",
+        "subtitle": "當您在【帳務處理】看到核保狀態變成「加保通過」時，只要 7 步就能完成自動沖銷：",
+        "steps": [
+            {
+                "page": 85,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "先到【安基作業 ➔ 協會代辦互助基金 ➔ 帳務處理】，確認核保狀態已變成【加保通過】",
+                "desc": "如果還是「處理中」代表協會還在審；變成【加保通過】就可以開始沖銷了！",
+                "stopAlert": ""
+            },
+            {
+                "page": 89,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點左上角全選方框 `☐` 把資料都勾起來 ➔ 點選上方的【自動沖銷】",
+                "desc": "勾選要沖銷的社員資料，按【自動沖銷】。",
+                "stopAlert": ""
+            },
+            {
+                "page": 90,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "在跳出來的確認視窗裡，再點一次【自動沖銷】",
+                "desc": "畫面會跳出自動沖銷成功的訊息 (P.91)！接著要去【會計作業】把沖銷傳票按通過。",
+                "stopAlert": ""
+            },
+            {
+                "page": 92,
+                "module": "會計作業",
+                "switchAlert": True,
+                "title": "🔄 切換系統：請點右上角【切換】➔ 改點【會計作業】",
+                "desc": "切換到【會計作業】模組。",
+                "stopAlert": ""
+            },
+            {
+                "page": 93,
+                "module": "會計作業",
+                "switchAlert": False,
+                "title": "點選左邊【傳票確認作業】➔ 把剛剛產生的沖銷傳票都點【通過】！",
+                "desc": "確認沖銷傳票內容沒問題後，全部點選【通過】。",
+                "stopAlert": "🛑 如果這裡沒看到沖銷傳票，一樣請通知【主管】先到【審核作業】審核通過！"
+            },
+            {
+                "page": 95,
+                "module": "安基作業",
+                "switchAlert": True,
+                "title": "🔄 回到【安基作業 ➔ 帳務處理】往右滑動，確認「是否沖銷」都變成【是】！",
+                "desc": "看到「是否沖銷」欄位全部顯示【是】，就代表整批互助基金作業 100% 圓滿結案囉！",
+                "stopAlert": ""
+            },
+            {
+                "page": 132,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "（補充）日後想查傳票：在【帳務處理】點社員右邊的「綠色鉛筆」即可看 3 張傳票",
+                "desc": "點鉛筆進去 (P.126)，隨時可以點【檢視傳票】查看該社員的：①收款傳票 (P.128)、②墊付傳票 (P.130)、③沖銷傳票 (P.132)。",
+                "stopAlert": ""
+            }
+        ]
+    },
+
+    # =========================================================================
+    # 5. 查看互助基金基本資料與費率表 (5 步)
+    # =========================================================================
+    "basic_info": {
+        "title": "🔍 查看【互助基金基本資料與費率表】",
+        "subtitle": "想確認某個互助基金的投保年齡上限、或是各計畫要繳多少錢：",
+        "steps": [
+            {
+                "page": 4,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "先點右上角【切換】➔ 再點【安基作業】",
+                "desc": "進入安基作業模組。",
+                "stopAlert": ""
+            },
+            {
+                "page": 6,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點左邊【協會代辦互助基金】➔ 找到要看的基金，點右邊「綠色鉛筆」圖示",
+                "desc": "例如點選「社員團體意外互助基金」右邊的綠色鉛筆。",
+                "stopAlert": ""
+            },
+            {
+                "page": 7,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "在【基本資料】頁籤，可以看投保資格與年齡限制說明",
+                "desc": "查看基金內容說明。",
+                "stopAlert": ""
+            },
+            {
+                "page": 8,
+                "module": "安基作業",
+                "switchAlert": False,
+                "title": "點選【互助費與經辦費明細】頁籤，可以看計畫一～五各自的費用與保額！",
+                "desc": "包含互助費、經辦費與總費用都列在這裡。",
+                "stopAlert": ""
+            }
+        ]
+    }
+}
+
+MODULE_BADGE_STYLE = {
+    "安基作業": "background:#dbeafe; color:#1d4ed8; border:2px solid #93c5fd;",
+    "臨櫃作業": "background:#ccfbf1; color:#0f766e; border:2px solid #5eead4;",
+    "會計作業": "background:#ede9fe; color:#6d28d9; border:2px solid #c4b5fd;",
+    "請款作業": "background:#fef3c7; color:#b45309; border:2px solid #fcd34d;",
+    "主管審核": "background:#fee2e2; color:#b91c1c; border:2px solid #fca5a5;",
+    "Excel批次": "background:#d1fae5; color:#047857; border:2px solid #6ee7b7;",
+}
+
+HTML_TEMPLATE = """<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>安基作業（協會代辦互助基金）專職實務操作引導系統</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
+      --green: #059669;
+      --orange: #d97706;
+      --red: #dc2626;
+      --purple: #7c3aed;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      min-height: 100vh;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #fff;
+      padding: 14px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .top-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand-pill {
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 5px 12px;
+      border-radius: 99px;
+    }
+
+    .brand-title h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      transition: transform 0.12s, background 0.15s;
+    }
+
+    .top-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-home {
+      background: #ffffff;
+      color: #1e3a8a;
+    }
+
+    .btn-cheatsheet {
+      background: #10b981;
+      color: #ffffff;
+    }
+
+    .btn-fullpdf {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    /* HOME MENU VIEW */
+    .hero-box {
+      background: #ffffff;
+      border: 2px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.06);
+    }
+
+    .hero-box h2 {
+      font-size: 26px;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+    }
+
+    .hero-box p {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 18px;
+    }
+
+    .task-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 24px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      transition: all 0.18s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .task-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 8px 20px rgba(29, 78, 216, 0.12);
+    }
+
+    .task-step-badge {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .task-card h3 {
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .task-card p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .sub-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .start-btn {
+      width: 100%;
+      text-align: left;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 2px solid #dbeafe;
+      background: #eff6ff;
+      color: #1e3a8a;
+      font-size: 15.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+
+    .start-btn:hover {
+      background: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+    }
+
+    .start-btn.primary-solid {
+      background: #1d4ed8;
+      color: #ffffff;
+      border-color: #1d4ed8;
+      justify-content: center;
+      font-size: 17px;
+      padding: 14px 20px;
+    }
+
+    .start-btn.primary-solid:hover {
+      background: #1e40af;
+    }
+
+    .start-btn.green-solid {
+      background: #059669;
+      color: #ffffff;
+      border-color: #059669;
+      justify-content: center;
+      font-size: 17px;
+      padding: 14px 20px;
+    }
+
+    .start-btn.green-solid:hover {
+      background: #047857;
+    }
+
+    .start-btn.red-solid {
+      background: #dc2626;
+      color: #ffffff;
+      border-color: #dc2626;
+      justify-content: center;
+      font-size: 17px;
+      padding: 14px 20px;
+    }
+
+    .start-btn.red-solid:hover {
+      background: #b91c1c;
+    }
+
+    .start-btn-hint {
+      font-size: 12.5px;
+      font-weight: 600;
+      opacity: 0.85;
+      white-space: nowrap;
+    }
+
+    /* WIZARD VIEW */
+    .wizard-view {
+      display: none;
+    }
+
+    .wizard-top-bar {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .wizard-flow-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    .wizard-flow-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .step-dots {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .step-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: inherit;
+    }
+
+    .step-dot:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .step-dot.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      transform: scale(1.08);
+    }
+
+    .step-dot.done {
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #6ee7b7;
+    }
+
+    /* Big Instruction Banner */
+    .instruction-card {
+      background: #ffffff;
+      border: 3px solid #2563eb;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.1);
+    }
+
+    .inst-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .inst-badges {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .step-counter-pill {
+      background: #1e3a8a;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 99px;
+    }
+
+    .module-pill {
+      font-size: 15px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 99px;
+    }
+
+    .switch-system-pill {
+      background: #fef3c7;
+      color: #b45309;
+      border: 2px solid #f59e0b;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 99px;
+    }
+
+    .orig-page-tag {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .inst-main-title {
+      font-size: 23px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+
+    .inst-sub-desc {
+      font-size: 16px;
+      color: #334155;
+    }
+
+    .stop-alert-box {
+      margin-top: 14px;
+      background: #fef2f2;
+      border: 2px solid #ef4444;
+      border-left: 8px solid #dc2626;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #991b1b;
+    }
+
+    /* Giant Navigation Buttons Bar */
+    .wizard-nav-bar {
+      display: grid;
+      grid-template-columns: 220px 1fr 260px;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .wizard-nav-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+      .wizard-nav-center {
+        display: none;
+      }
+    }
+
+    .giant-nav-btn {
+      padding: 15px 22px;
+      border-radius: 14px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
+    }
+
+    .giant-prev {
+      background: #ffffff;
+      color: #1e293b;
+      border: 2px solid #94a3b8;
+    }
+
+    .giant-prev:hover:not(:disabled) {
+      background: #f1f5f9;
+      border-color: #475569;
+    }
+
+    .giant-next {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .giant-next:hover:not(:disabled) {
+      background: #15803d;
+      transform: translateY(-1px);
+    }
+
+    .giant-nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .wizard-nav-center {
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Screenshot Box */
+    .slide-stage {
+      background: #0f172a;
+      border: 3px solid #cbd5e1;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+      position: relative;
+      cursor: zoom-in;
+    }
+
+    .slide-stage img {
+      width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      background: #ffffff;
+    }
+
+    .slide-zoom-tip {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(15, 23, 42, 0.82);
+      color: #ffffff;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      pointer-events: none;
+    }
+
+    /* SOS / FAQ View */
+    .sos-view {
+      display: none;
+    }
+
+    .sos-card {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-left: 8px solid #dc2626;
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    }
+
+    .sos-card h3 {
+      font-size: 20px;
+      color: #991b1b;
+      margin-bottom: 10px;
+    }
+
+    .sos-card p {
+      font-size: 16px;
+      color: #1e293b;
+      margin-bottom: 12px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.94);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-top {
+      width: 100%;
+      max-width: 1440px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .lightbox img {
+      max-width: 96vw;
+      max-height: 86vh;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="top-bar">
+    <div class="top-inner">
+      <div class="brand-title" id="brandHomeBtn" title="返回任務主選單">
+        <span class="brand-pill">專職實務引導版</span>
+        <h1>安基作業（協會代辦互助基金）互動操作引導系統</h1>
+      </div>
+
+      <div class="top-actions">
+        <button type="button" class="top-btn btn-home" id="backHomeBtn">
+          🏠 返回任務主選單
+        </button>
+        <a href="安基作業教學_專職實務速查卡_A4大字版.pdf" target="_blank" class="top-btn btn-cheatsheet">
+          🖨️ 印出 2 頁大字版桌面速查卡 (PDF)
+        </a>
+        <a href="安基作業教學_SOP速查手冊_A4列印版.pdf" target="_blank" class="top-btn btn-fullpdf">
+          📄 完整 4 頁速查表 (PDF)
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ==================== 1. HOME MENU VIEW ==================== -->
+    <section id="homeMenuView">
+      <div class="hero-box">
+        <h2>👋 請問您現在手頭上要辦哪一項作業？</h2>
+        <p>不用自己翻 133 頁簡報！請點選下方您現在要做的任務，系統會自動幫您把跨系統步驟排成一條直線，按【下一步】就能做完！</p>
+      </div>
+
+      <div class="task-grid">
+        <!-- Card 1: 新加保 -->
+        <div class="task-card">
+          <div>
+            <span class="task-step-badge" style="background:#dbeafe; color:#1d4ed8;">最常用｜單筆新加保</span>
+            <h3>1️⃣ 我要幫社員辦【新加保】</h3>
+            <p>請問這位社員是用哪一種方式付保費？（點選後自動幫您排好跨系統順序）：</p>
+          </div>
+          <div class="sub-btn-group">
+            <button type="button" class="start-btn" data-start-flow="new_cash">
+              <span>💵 社員現場付現金（現金收款）</span>
+              <span class="start-btn-hint">安基 ➔ 臨櫃收現 ▶</span>
+            </button>
+            <button type="button" class="start-btn" data-start-flow="new_reserve">
+              <span>🏦 扣社員的【備轉金】</span>
+              <span class="start-btn-hint">安基 ➔ 會計確認 ▶</span>
+            </button>
+            <button type="button" class="start-btn" data-start-flow="new_payable" style="border-color:#fca5a5; background:#fef2f2; color:#991b1b;">
+              <span>🔄 從社員活存轉【應付代收】</span>
+              <span class="start-btn-hint">先會計開傳票 ➔ 安基 ▶</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2: 年度續保與修改資料 -->
+        <div class="task-card">
+          <div>
+            <span class="task-step-badge" style="background:#ccfbf1; color:#0f766e;">新年度續約｜改付款方式</span>
+            <h3>2️⃣ 我要辦【年度續保】或【修改社員資料】</h3>
+            <p>匯入去年續保名單，或把社員的付款方式從現金改成應付代收：</p>
+          </div>
+          <div class="sub-btn-group">
+            <button type="button" class="start-btn" data-start-flow="renew_direct">
+              <span>⚡ 直接匯入續約名冊（資料都不用改）</span>
+              <span class="start-btn-hint">共 5 步 ▶</span>
+            </button>
+            <button type="button" class="start-btn" data-start-flow="renew_edit_single">
+              <span>✏️ 只改 1～2 位社員資料（點綠色鉛筆手動改）</span>
+              <span class="start-btn-hint">共 4 步 ▶</span>
+            </button>
+            <button type="button" class="start-btn" data-start-flow="renew_edit_batch">
+              <span>📊 要改很多位社員（匯出 Excel 整批改再匯入）</span>
+              <span class="start-btn-hint">共 5 步 ▶</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: 合併送件 + 送協會 + 請款 -->
+        <div class="task-card">
+          <div>
+            <span class="task-step-badge" style="background:#fef3c7; color:#b45309;">名冊建好後必做｜送主管與協會</span>
+            <h3>3️⃣ 名冊都建好了，我要【合併送件＋送協會＋請款】</h3>
+            <p>當社員加保或續保都「已送出」且收完款後，打包送主管審查、送至協會並開立請款單與墊付傳票：</p>
+          </div>
+          <div class="sub-btn-group">
+            <button type="button" class="start-btn primary-solid" data-start-flow="merge_and_claim">
+              📤 開始【合併送件 ＋ 送協會 ＋ 請款】（共 12 步） ▶
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4: 核保通過後自動沖銷 -->
+        <div class="task-card">
+          <div>
+            <span class="task-step-badge" style="background:#d1fae5; color:#047857;">最後結案｜協會核保通過後</span>
+            <h3>4️⃣ 協會核保通過了，我要做【自動沖銷結案】</h3>
+            <p>當「帳務處理」的核保狀態從處理中變成【加保通過】後，執行自動沖銷並去會計作業確認傳票：</p>
+          </div>
+          <div class="sub-btn-group">
+            <button type="button" class="start-btn green-solid" data-start-flow="writeoff">
+              ✅ 開始【自動沖銷結案】（共 7 步） ▶
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 5: 查基本資料與費率 -->
+        <div class="task-card">
+          <div>
+            <span class="task-step-badge" style="background:#ede9fe; color:#6d28d9;">查詢工具</span>
+            <h3>5️⃣ 我想先查【互助基金基本資料與各計畫保費】</h3>
+            <p>查看社員團體意外互助基金等項目的投保年齡限制、互助費與經辦費明細：</p>
+          </div>
+          <div class="sub-btn-group">
+            <button type="button" class="start-btn" data-start-flow="basic_info">
+              <span>🔍 查看基金基本資料與費率表</span>
+              <span class="start-btn-hint">共 4 步 ▶</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 6: 常見問題排除 -->
+        <div class="task-card" style="border-color:#fca5a5; background:#fffafa;">
+          <div>
+            <span class="task-step-badge" style="background:#fee2e2; color:#b91c1c;">常見問題 FAQ</span>
+            <h3>💡 常見問題排除（找不到傳票／沒看到按鈕／結餘為 0）</h3>
+            <p>遇到畫面沒有【送至協會】按鈕、會計找不到傳票、應付代收結餘為 0、或送出後發現資料需更正：</p>
+          </div>
+          <div class="sub-btn-group">
+            <button type="button" class="start-btn red-solid" id="openSosBtn">
+              🔍 點此查看 4 大常見問題排除方式 ▶
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 2. STEP-BY-STEP WIZARD VIEW ==================== -->
+    <section id="wizardView" class="wizard-view">
+      <div class="wizard-top-bar">
+        <div>
+          <div class="wizard-flow-title" id="wizFlowTitle">流程標題</div>
+          <div class="wizard-flow-sub" id="wizFlowSub">流程說明</div>
+        </div>
+        <div class="step-dots" id="wizStepDots"></div>
+      </div>
+
+      <!-- Current Step Big Instruction Card -->
+      <div class="instruction-card">
+        <div class="inst-header">
+          <div class="inst-badges">
+            <span class="step-counter-pill" id="wizStepCounter">第 1 步 / 共 10 步</span>
+            <span class="module-pill" id="wizModulePill">現在請在：【安基作業】</span>
+            <span class="switch-system-pill" id="wizSwitchPill" style="display:none;">🔄 注意：這一步要切換系統模組喔！</span>
+          </div>
+          <span class="orig-page-tag" id="wizOrigPage">對應原簡報：P.4</span>
+        </div>
+
+        <div class="inst-main-title" id="wizInstTitle">步驟主指令</div>
+        <div class="inst-sub-desc" id="wizInstDesc">步驟詳細說明</div>
+        <div class="stop-alert-box" id="wizStopAlert" style="display:none;"></div>
+      </div>
+
+      <!-- Giant Prev / Next Navigation Buttons -->
+      <div class="wizard-nav-bar">
+        <button type="button" class="giant-nav-btn giant-prev" id="wizPrevBtn">
+          ⬅️ 上一步
+        </button>
+        <div class="wizard-nav-center">
+          💡 看完下方紅框畫面操作完畢後，請按右邊綠色【下一步】繼續（也可按鍵盤 ← → 方向鍵）
+        </div>
+        <button type="button" class="giant-nav-btn giant-next" id="wizNextBtn">
+          下一步，做好了 ➡️
+        </button>
+      </div>
+
+      <!-- Current Step Big Slide Image -->
+      <div class="slide-stage" id="wizSlideStage" title="點擊圖片可全螢幕放大">
+        <img id="wizSlideImg" src="assets/slides/page_004.jpg" alt="步驟操作畫面" />
+        <span class="slide-zoom-tip">🔍 點擊畫面可全螢幕放大檢視</span>
+      </div>
+    </section>
+
+    <!-- ==================== 3. SOS TROUBLESHOOTING VIEW ==================== -->
+    <section id="sosView" class="sos-view">
+      <div class="hero-box" style="border-color:#fca5a5;">
+        <h2 style="color:#b91c1c;">💡 常見問題排除指南：4 個最常遇到的狀況與處理方式</h2>
+        <p>當遇到畫面未顯示按鈕或查無傳票時，可參考以下 4 項跨模組檢核要點：</p>
+      </div>
+
+      <div class="sos-card">
+        <h3>狀況 1：選「應付代收」時，為什麼畫面下方的【結餘】顯示 0，無法送出？</h3>
+        <p>
+          👉 <strong>常見原因：</strong>款項尚在社員的「活期存款」中，尚未轉入「代收互助基金」會計科目。<br/>
+          👉 <strong>處理方式：</strong>請先切換至 <strong>【會計作業 ➔ 傳票管理 ➔ 開立傳票】</strong> 開立一張「支出轉帳傳票」（借方：選社員帳號＋<code>11211 活期存款</code> ／ 貸方：選 <code>21514 代收社員意外互助基金</code> 或 <code>21515 代收重大疾病互助基金</code>）。傳票送出後，再返回安基作業，【結餘】即會顯示金額。
+        </p>
+        <button type="button" class="start-btn" data-start-flow="new_payable" style="max-width:420px;">
+          <span>👉 點此查看「應付代收」完整操作步驟</span>
+          <span>▶</span>
+        </button>
+      </div>
+
+      <div class="sos-card">
+        <h3>狀況 2：在【加退保合併送件】裡面，為什麼沒有看到【送至協會】的按鈕？</h3>
+        <p>
+          👉 <strong>常見原因：</strong>點選【確認名單，送主管審查】之後，<strong>需待主管帳號審核通過後才會顯示下一階段按鈕。</strong><br/>
+          👉 <strong>處理方式：</strong>請通知 <strong>【主管】</strong> 登入系統，至 <strong>【審核作業】</strong> 將該筆合併送件名單（以及相關的互助基金傳票）審核通過。待主管審核完成後，重新點進該筆【加退保合併送件】，即會顯示【送至協會】按鈕。
+        </p>
+      </div>
+
+      <div class="sos-card">
+        <h3>狀況 3：前往【會計作業 ➔ 傳票確認作業】要列印傳票時，為什麼查無傳票？</h3>
+        <p>
+          👉 <strong>常見原因：</strong>該張互助基金相關傳票<strong>尚未經過主管審核放行</strong>。<br/>
+          👉 <strong>處理方式：</strong>請通知 <strong>【主管】</strong> 至 <strong>【審核作業】</strong> 檢視是否有待審核的互助基金相關傳票。主管審核通過後，【傳票確認作業】列表中即會出現該張傳票。
+        </p>
+      </div>
+
+      <div class="sos-card">
+        <h3>狀況 4：已經點選【送至協會】後，才發現有社員資料需要更正，該如何處理？</h3>
+        <p>
+          👉 <strong>常見原因：</strong>一旦狀態變更為【已送至協會】，系統即鎖定該批名冊，無法直接於線上退回修改。<br/>
+          👉 <strong>處理方式：</strong>在協會核保通過前若需變更資料，<strong>需改以「人工送紙本」方式向協會辦理變更（作業時間約需 1 個月）</strong>。因此建議在點選【送至協會】前，先點選【預覽名冊】與【列印名冊】再次核對資料。
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightboxModal">
+    <div class="lightbox-top">
+      <strong id="lbCaption" style="font-size:16px;">放大檢視</strong>
+      <button type="button" class="top-btn" id="lbCloseBtn" style="background:#dc2626; color:#fff;">✕ 關閉放大 (Esc)</button>
+    </div>
+    <img id="lbImg" src="assets/slides/page_004.jpg" alt="放大畫面" />
+  </div>
+
+  <script>
+    (function () {
+      var FLOWS = __FLOWS_JSON__;
+      var MOD_STYLES = __MOD_STYLES_JSON__;
+
+      var currentFlowKey = null;
+      var currentStepIdx = 0;
+
+      var homeMenuView = document.getElementById("homeMenuView");
+      var wizardView = document.getElementById("wizardView");
+      var sosView = document.getElementById("sosView");
+
+      function pad3(n) {
+        var s = String(n);
+        while (s.length < 3) s = "0" + s;
+        return s;
+      }
+
+      function showHome() {
+        currentFlowKey = null;
+        homeMenuView.style.display = "block";
+        wizardView.style.display = "none";
+        sosView.style.display = "none";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function showSos() {
+        currentFlowKey = null;
+        homeMenuView.style.display = "none";
+        wizardView.style.display = "none";
+        sosView.style.display = "block";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function startFlow(flowKey) {
+        var flow = FLOWS[flowKey];
+        if (!flow) return;
+        currentFlowKey = flowKey;
+        currentStepIdx = 0;
+        homeMenuView.style.display = "none";
+        sosView.style.display = "none";
+        wizardView.style.display = "block";
+        renderWizardStep();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderWizardStep() {
+        var flow = FLOWS[currentFlowKey];
+        if (!flow) return;
+        var steps = flow.steps;
+        var total = steps.length;
+        var st = steps[currentStepIdx];
+
+        document.getElementById("wizFlowTitle").textContent = flow.title;
+        document.getElementById("wizFlowSub").textContent = flow.subtitle;
+
+        // Render step dots
+        var dotsHtml = "";
+        for (var i = 0; i < total; i++) {
+          var cls = "step-dot";
+          if (i === currentStepIdx) cls += " active";
+          else if (i < currentStepIdx) cls += " done";
+          dotsHtml += '<button type="button" class="' + cls + '" data-goto-idx="' + i + '" title="跳至第 ' + (i + 1) + ' 步">' + (i + 1) + '</button>';
+        }
+        document.getElementById("wizStepDots").innerHTML = dotsHtml;
+
+        // Counter & Module pill
+        document.getElementById("wizStepCounter").textContent = "第 " + (currentStepIdx + 1) + " 步 / 共 " + total + " 步";
+        var modPill = document.getElementById("wizModulePill");
+        modPill.textContent = "現在請在：【" + st.module + "】";
+        modPill.setAttribute("style", MOD_STYLES[st.module] || "");
+
+        var switchPill = document.getElementById("wizSwitchPill");
+        switchPill.style.display = st.switchAlert ? "inline-block" : "none";
+
+        document.getElementById("wizOrigPage").textContent = "對應原簡報：P." + st.page;
+        document.getElementById("wizInstTitle").textContent = "👉 " + st.title;
+        document.getElementById("wizInstDesc").textContent = st.desc;
+
+        var stopBox = document.getElementById("wizStopAlert");
+        if (st.stopAlert) {
+          stopBox.style.display = "block";
+          stopBox.textContent = st.stopAlert;
+        } else {
+          stopBox.style.display = "none";
+        }
+
+        // Prev / Next buttons
+        var prevBtn = document.getElementById("wizPrevBtn");
+        var nextBtn = document.getElementById("wizNextBtn");
+        prevBtn.disabled = (currentStepIdx <= 0);
+
+        if (currentStepIdx >= total - 1) {
+          nextBtn.textContent = "🎉 已完成最後一步！返回主選單";
+          nextBtn.style.background = "#2563eb";
+        } else {
+          nextBtn.textContent = "下一步，做好了 (" + (currentStepIdx + 2) + "/" + total + ") ➡️";
+          nextBtn.style.background = "#16a34a";
+        }
+
+        // Slide image
+        var imgPath = "assets/slides/page_" + pad3(st.page) + ".jpg";
+        document.getElementById("wizSlideImg").src = imgPath;
+        document.getElementById("lbImg").src = imgPath;
+        document.getElementById("lbCaption").textContent = "第 " + (currentStepIdx + 1) + " 步（P." + st.page + "）：" + st.title;
+      }
+
+      // Global click delegation
+      document.addEventListener("click", function (e) {
+        var startBtn = e.target.closest("[data-start-flow]");
+        if (startBtn) {
+          startFlow(startBtn.getAttribute("data-start-flow"));
+          return;
+        }
+
+        var dotBtn = e.target.closest("[data-goto-idx]");
+        if (dotBtn) {
+          currentStepIdx = parseInt(dotBtn.getAttribute("data-goto-idx"), 10);
+          renderWizardStep();
+          return;
+        }
+      });
+
+      document.getElementById("backHomeBtn").addEventListener("click", showHome);
+      document.getElementById("brandHomeBtn").addEventListener("click", showHome);
+      document.getElementById("openSosBtn").addEventListener("click", showSos);
+
+      document.getElementById("wizPrevBtn").addEventListener("click", function () {
+        if (currentStepIdx > 0) {
+          currentStepIdx--;
+          renderWizardStep();
+        }
+      });
+
+      document.getElementById("wizNextBtn").addEventListener("click", function () {
+        if (!currentFlowKey) return;
+        var total = FLOWS[currentFlowKey].steps.length;
+        if (currentStepIdx < total - 1) {
+          currentStepIdx++;
+          renderWizardStep();
+        } else {
+          showHome();
+        }
+      });
+
+      // Lightbox
+      var lbModal = document.getElementById("lightboxModal");
+      document.getElementById("wizSlideStage").addEventListener("click", function () {
+        lbModal.classList.add("open");
+      });
+      document.getElementById("lbCloseBtn").addEventListener("click", function () {
+        lbModal.classList.remove("open");
+      });
+      lbModal.addEventListener("click", function (e) {
+        if (e.target === lbModal) lbModal.classList.remove("open");
+      });
+
+      // Keyboard Left / Right support
+      window.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && lbModal.classList.contains("open")) {
+          lbModal.classList.remove("open");
+          return;
+        }
+        if (!currentFlowKey) return;
+        var total = FLOWS[currentFlowKey].steps.length;
+        if (e.key === "ArrowLeft" && currentStepIdx > 0) {
+          currentStepIdx--;
+          renderWizardStep();
+        } else if (e.key === "ArrowRight" && currentStepIdx < total - 1) {
+          currentStepIdx++;
+          renderWizardStep();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+"""
+
+
+def main():
+    html_out = HTML_TEMPLATE.replace(
+        "__FLOWS_JSON__", json.dumps(WIZARD_FLOWS, ensure_ascii=False)
+    ).replace(
+        "__MOD_STYLES_JSON__", json.dumps(MODULE_BADGE_STYLE, ensure_ascii=False)
+    )
+    with open(OUTPUT_HTML, "w", encoding="utf-8", newline="\n") as f:
+        f.write(html_out)
+    print(f"Successfully generated ATM Wizard index.html ({len(html_out)} chars) at {OUTPUT_HTML}")
+
+
+if __name__ == "__main__":
+    main()
