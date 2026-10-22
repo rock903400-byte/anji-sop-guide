@@ -884,7 +884,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 
     .task-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
       gap: 18px;
     }
 
@@ -1288,13 +1288,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.94);
+      background: rgba(15, 23, 42, 0.96);
       z-index: 999;
       display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
+      justify-content: flex-start;
+      padding: 16px;
     }
 
     .lightbox.open {
@@ -1307,16 +1307,285 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
       color: #fff;
       margin-bottom: 12px;
+      flex-shrink: 0;
+    }
+
+    .lightbox-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .lightbox-scroll-wrap {
+      width: 100%;
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
+    }
+
+    .lightbox-scroll-wrap.zoomed {
+      align-items: flex-start;
+      justify-content: flex-start;
     }
 
     .lightbox img {
       max-width: 96vw;
-      max-height: 86vh;
+      max-height: 85vh;
       object-fit: contain;
       background: #fff;
       border-radius: 8px;
+      transition: width 0.15s ease;
+    }
+
+    .lightbox-scroll-wrap.zoomed img {
+      max-width: none;
+      max-height: none;
+      width: 210vw;
+      border-radius: 4px;
+    }
+
+    .mobile-swipe-hint {
+      display: none;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #475569;
+      background: #e2e8f0;
+      padding: 6px 12px;
+      border-radius: 99px;
+      margin-bottom: 10px;
+    }
+
+    /* ==================== MOBILE & LINE IN-APP BROWSER OPTIMIZATION ==================== */
+    @media (max-width: 768px) {
+      .top-bar {
+        padding: 10px 12px;
+      }
+
+      .top-inner {
+        gap: 8px;
+      }
+
+      .brand-title {
+        gap: 8px;
+      }
+
+      .brand-pill {
+        font-size: 12px;
+        padding: 3px 8px;
+      }
+
+      .brand-title h1 {
+        font-size: 15.5px;
+        line-height: 1.3;
+      }
+
+      .top-actions {
+        width: 100%;
+        justify-content: space-between;
+        gap: 6px;
+      }
+
+      .top-btn {
+        font-size: 12.5px;
+        padding: 6px 11px;
+        flex: 1;
+        justify-content: center;
+        white-space: nowrap;
+      }
+
+      .btn-fullpdf {
+        display: none;
+      }
+
+      .container {
+        padding: 14px 12px 104px;
+      }
+
+      .hero-box {
+        padding: 16px 14px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+      }
+
+      .hero-box h2 {
+        font-size: 20px;
+      }
+
+      .hero-box p {
+        font-size: 14px;
+      }
+
+      .task-grid {
+        gap: 12px;
+      }
+
+      .task-card {
+        padding: 16px 14px;
+        border-radius: 14px;
+      }
+
+      .task-card h3 {
+        font-size: 18px;
+      }
+
+      .task-card p {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      .start-btn {
+        padding: 12px 13px;
+        font-size: 14.5px;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .start-btn.primary-solid,
+      .start-btn.green-solid,
+      .start-btn.red-solid {
+        font-size: 15px;
+        padding: 13px 14px;
+        text-align: center;
+      }
+
+      .start-btn-hint {
+        font-size: 12px;
+        margin-left: auto;
+      }
+
+      /* Wizard View on Mobile */
+      .wizard-top-bar {
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        gap: 10px;
+      }
+
+      .wizard-flow-title {
+        font-size: 16.5px;
+      }
+
+      .wizard-flow-sub {
+        font-size: 13px;
+      }
+
+      /* Single-row horizontal scrollable step dots */
+      .step-dots {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .step-dots::-webkit-scrollbar {
+        display: none;
+      }
+
+      .step-dot {
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+      }
+
+      .instruction-card {
+        padding: 14px 14px;
+        margin-bottom: 10px;
+        border-width: 2px;
+        border-radius: 14px;
+      }
+
+      .inst-header {
+        margin-bottom: 8px;
+        gap: 6px;
+      }
+
+      .step-counter-pill,
+      .module-pill {
+        font-size: 13px;
+        padding: 4px 10px;
+      }
+
+      .switch-system-pill {
+        font-size: 12.5px;
+        padding: 3px 10px;
+      }
+
+      .orig-page-tag {
+        font-size: 12px;
+      }
+
+      .inst-main-title {
+        font-size: 18px;
+        line-height: 1.4;
+      }
+
+      .inst-sub-desc {
+        font-size: 14.5px;
+      }
+
+      .stop-alert-box {
+        padding: 10px 12px;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      /* Sticky Bottom Thumb Bar for Prev / Next on Mobile */
+      .wizard-nav-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 95;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(8px);
+        border-top: 2px solid #cbd5e1;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        margin-bottom: 0;
+        grid-template-columns: 110px 1fr;
+        gap: 10px;
+        box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.12);
+      }
+
+      .giant-nav-btn {
+        padding: 13px 12px;
+        font-size: 15.5px;
+        border-radius: 12px;
+      }
+
+      .mobile-swipe-hint {
+        display: block;
+      }
+
+      .slide-zoom-tip {
+        font-size: 12px;
+        padding: 5px 10px;
+        bottom: 8px;
+        right: 8px;
+      }
+
+      .lightbox {
+        padding: 10px;
+      }
+
+      .lightbox-top {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .lightbox-actions {
+        justify-content: space-between;
+      }
     }
   </style>
 </head>
@@ -1499,6 +1768,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
       </div>
 
       <!-- Current Step Big Slide Image -->
+      <div class="mobile-swipe-hint">👆 手機版小技巧：可左右滑動切換步驟，或點下方圖片放大 200% 看細字</div>
       <div class="slide-stage" id="wizSlideStage" title="點擊圖片可全螢幕放大">
         <img id="wizSlideImg" src="assets/slides/page_004.jpg" alt="步驟操作畫面" />
         <span class="slide-zoom-tip">🔍 點擊畫面可全螢幕放大檢視</span>
@@ -1554,10 +1824,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   <!-- Lightbox Modal -->
   <div class="lightbox" id="lightboxModal">
     <div class="lightbox-top">
-      <strong id="lbCaption" style="font-size:16px;">放大檢視</strong>
-      <button type="button" class="top-btn" id="lbCloseBtn" style="background:#dc2626; color:#fff;">✕ 關閉放大 (Esc)</button>
+      <strong id="lbCaption" style="font-size:15px; line-height:1.35;">放大檢視</strong>
+      <div class="lightbox-actions">
+        <button type="button" class="top-btn" id="lbZoomToggleBtn" style="background:#2563eb; color:#fff;">🔍 切換 200% 放大滑動</button>
+        <button type="button" class="top-btn" id="lbCloseBtn" style="background:#dc2626; color:#fff;">✕ 關閉 (Esc)</button>
+      </div>
     </div>
-    <img id="lbImg" src="assets/slides/page_004.jpg" alt="放大畫面" />
+    <div class="lightbox-scroll-wrap" id="lbScrollWrap">
+      <img id="lbImg" src="assets/slides/page_004.jpg" alt="放大畫面" />
+    </div>
   </div>
 
   <script>
@@ -1624,7 +1899,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
           else if (i < currentStepIdx) cls += " done";
           dotsHtml += '<button type="button" class="' + cls + '" data-goto-idx="' + i + '" title="跳至第 ' + (i + 1) + ' 步">' + (i + 1) + '</button>';
         }
-        document.getElementById("wizStepDots").innerHTML = dotsHtml;
+        var dotsContainer = document.getElementById("wizStepDots");
+        dotsContainer.innerHTML = dotsHtml;
+        var activeDot = dotsContainer.querySelector(".step-dot.active");
+        if (activeDot && activeDot.scrollIntoView) {
+          activeDot.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+        }
 
         // Counter & Module pill
         document.getElementById("wizStepCounter").textContent = "第 " + (currentStepIdx + 1) + " 步 / 共 " + total + " 步";
@@ -1705,17 +1985,61 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }
       });
 
-      // Lightbox
+      // Lightbox & 200% Zoom Toggle
       var lbModal = document.getElementById("lightboxModal");
+      var lbScrollWrap = document.getElementById("lbScrollWrap");
+      var lbZoomToggleBtn = document.getElementById("lbZoomToggleBtn");
+
+      function resetLbZoom() {
+        lbScrollWrap.classList.remove("zoomed");
+        lbZoomToggleBtn.textContent = "🔍 切換 200% 放大滑動";
+      }
+
       document.getElementById("wizSlideStage").addEventListener("click", function () {
+        resetLbZoom();
         lbModal.classList.add("open");
       });
+
+      lbZoomToggleBtn.addEventListener("click", function () {
+        var isZoomed = lbScrollWrap.classList.toggle("zoomed");
+        lbZoomToggleBtn.textContent = isZoomed ? "📐 恢復適應螢幕大小" : "🔍 切換 200% 放大滑動";
+      });
+
       document.getElementById("lbCloseBtn").addEventListener("click", function () {
         lbModal.classList.remove("open");
       });
       lbModal.addEventListener("click", function (e) {
-        if (e.target === lbModal) lbModal.classList.remove("open");
+        if (e.target === lbModal || e.target === lbScrollWrap) lbModal.classList.remove("open");
       });
+
+      // Mobile Touch Swipe Left / Right Support
+      var touchStartX = 0;
+      var touchStartY = 0;
+      wizardView.addEventListener("touchstart", function (e) {
+        if (!e.touches || e.touches.length !== 1) return;
+        if (e.target.closest("#wizStepDots")) return;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      wizardView.addEventListener("touchend", function (e) {
+        if (!currentFlowKey || !e.changedTouches || e.changedTouches.length !== 1) return;
+        if (e.target.closest("#wizStepDots")) return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > 65 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+          var total = FLOWS[currentFlowKey].steps.length;
+          if (dx < 0 && currentStepIdx < total - 1) {
+            currentStepIdx++;
+            renderWizardStep();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else if (dx > 0 && currentStepIdx > 0) {
+            currentStepIdx--;
+            renderWizardStep();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }
+        }
+      }, { passive: true });
 
       // Keyboard Left / Right support
       window.addEventListener("keydown", function (e) {
