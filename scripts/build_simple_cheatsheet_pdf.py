@@ -35,8 +35,8 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
     color: #0f172a;
     background: #fff;
-    font-size: 10pt;
-    line-height: 1.34;
+    font-size: 9.8pt;
+    line-height: 1.33;
   }
   .page {
     width: 100%;
@@ -62,13 +62,13 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     gap: 10px;
   }
   .header h1 {
-    font-size: 14pt;
+    font-size: 13.8pt;
     font-weight: 900;
     letter-spacing: 0.3px;
     white-space: nowrap;
   }
   .header .sub {
-    font-size: 9.2pt;
+    font-size: 9pt;
     background: #f59e0b;
     color: #0f172a;
     font-weight: 900;
@@ -89,13 +89,13 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     gap: 10px;
   }
   .golden-banner .icon {
-    font-size: 17pt;
+    font-size: 16pt;
     font-weight: 900;
     color: #dc2626;
     flex-shrink: 0;
   }
   .golden-banner .text {
-    font-size: 10.2pt;
+    font-size: 9.8pt;
     font-weight: 800;
     color: #7f1d1d;
   }
@@ -113,8 +113,8 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   .sec-title {
     background: #0f172a;
     color: #fff;
-    padding: 5px 12px;
-    font-size: 11pt;
+    padding: 4.5px 12px;
+    font-size: 10.6pt;
     font-weight: 900;
     display: flex;
     justify-content: space-between;
@@ -130,7 +130,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   .sec-title.red { background: #b91c1c; }
 
   .sec-title span.badge {
-    font-size: 8.8pt;
+    font-size: 8.6pt;
     background: rgba(255,255,255,0.22);
     padding: 1px 8px;
     border-radius: 99px;
@@ -140,7 +140,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   }
 
   .sec-body {
-    padding: 7px 9px;
+    padding: 6.5px 9px;
     background: #fff;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -155,18 +155,18 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   .pay-card {
     border: 2px solid #94a3b8;
     border-radius: 7px;
-    padding: 7px 8px;
+    padding: 6.5px 8px;
     background: #f8fafc;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4.5px;
   }
   .pay-card.cash { border-color: #16a34a; background: #f0fdf4; }
   .pay-card.res { border-color: #2563eb; background: #eff6ff; }
   .pay-card.pay { border-color: #dc2626; background: #fff1f2; }
 
   .pay-head {
-    font-size: 10.5pt;
+    font-size: 10.2pt;
     font-weight: 900;
     padding-bottom: 4px;
     border-bottom: 1.5px solid rgba(0,0,0,0.12);
@@ -176,7 +176,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     gap: 4px;
   }
   .pay-head .tag {
-    font-size: 8.2pt;
+    font-size: 8pt;
     padding: 1px 6px;
     border-radius: 4px;
     white-space: nowrap;
@@ -193,10 +193,10 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3.8px;
   }
   .step-list li {
-    font-size: 9.6pt;
+    font-size: 9.3pt;
     font-weight: 700;
     display: flex;
     gap: 5px;
@@ -205,10 +205,10 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   .step-num {
     background: #1e293b;
     color: #fff;
-    font-size: 8.5pt;
+    font-size: 8.2pt;
     font-weight: 900;
-    min-width: 17px;
-    height: 17px;
+    min-width: 16px;
+    height: 16px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -226,7 +226,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     font-weight: 900;
     padding: 0px 5px;
     border-radius: 4px;
-    font-size: 8.8pt;
+    font-size: 8.4pt;
     white-space: nowrap;
   }
   .sys-pill {
@@ -236,7 +236,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     font-weight: 900;
     padding: 0px 5px;
     border-radius: 4px;
-    font-size: 8.8pt;
+    font-size: 8.4pt;
     white-space: nowrap;
   }
 
@@ -247,11 +247,11 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   }
   .flow-table th, .flow-table td {
     border: 1.5px solid #cbd5e1;
-    padding: 4.5px 8px;
+    padding: 4px 8px;
     text-align: left;
     vertical-align: middle;
-    font-size: 9.5pt;
-    line-height: 1.32;
+    font-size: 9.2pt;
+    line-height: 1.3;
   }
   .flow-table th {
     background: #f1f5f9;
@@ -266,7 +266,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   /* Two column layout */
   .two-col {
     display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1.02fr 0.98fr;
     gap: 8px;
   }
 
@@ -275,21 +275,21 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     background: #fffbeb;
     border: 1.5px solid #f59e0b;
     border-radius: 6px;
-    padding: 5px 9px;
-    font-size: 9.4pt;
+    padding: 4.5px 9px;
+    font-size: 9pt;
     font-weight: 800;
     color: #92400e;
-    margin-top: 6px;
+    margin-top: 5px;
   }
   .danger-strip {
     background: #fef2f2;
     border: 1.5px solid #ef4444;
     border-radius: 6px;
-    padding: 5px 9px;
-    font-size: 9.3pt;
+    padding: 4.5px 9px;
+    font-size: 9pt;
     font-weight: 800;
     color: #991b1b;
-    margin-top: 6px;
+    margin-top: 5px;
   }
 
   /* FAQ Table */
@@ -302,24 +302,24 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     border: 1.5px solid #fca5a5;
     background: #fff5f5;
     border-radius: 6px;
-    padding: 4.5px 7px;
+    padding: 4px 7px;
   }
   .faq-q {
-    font-size: 9.4pt;
+    font-size: 9.1pt;
     font-weight: 900;
     color: #b91c1c;
     margin-bottom: 1.5px;
   }
   .faq-a {
-    font-size: 9pt;
+    font-size: 8.8pt;
     font-weight: 700;
     color: #1e293b;
-    line-height: 1.28;
+    line-height: 1.26;
   }
 
   .footer {
     text-align: center;
-    font-size: 8.5pt;
+    font-size: 8.4pt;
     color: #64748b;
     font-weight: 700;
     border-top: 1px solid #cbd5e1;
@@ -329,172 +329,168 @@ HTML_CONTENT = r"""<!DOCTYPE html>
 </head>
 <body>
 
-<!-- ==================== PAGE 1: 正面 (新加保 + 續保 + 修改資料) ==================== -->
+<!-- ==================== PAGE 1: 正面 (新加保 3 大付款方式 + 年度續保 + 調整加保資料) ==================== -->
 <div class="page">
   <div class="header">
-    <h1>📋 安基互助基金 ── 專職人員實務操作速查卡（正面）</h1>
-    <div class="sub">桌面常備・跨系統流程對照</div>
+    <h1>📋 協會代辦互助基金（安基作業）── 專職人員實務操作速查卡（正面）</h1>
+    <div class="sub">桌面常備・對應原簡報 P.1~P.133</div>
   </div>
 
   <div class="golden-banner">
     <div class="icon">🛑</div>
     <div class="text">
-      全系統審核原則：每當完成「新增、修改、確認、請款」後，<b>均需請【主管】進入「審核作業」點選審核通過</b>，方可進行下一階段作業（若由主管親自建檔，亦需進入審核作業執行審核）。
+      跨系統核心檢核：完成「合併送件送審、應付代收/備轉金/沖銷傳票開立」後，<b>均需請【主管】進入「審核作業」點選審核通過</b>，下一階段按鈕或【傳票確認作業】才會顯示！（註：C 級社於合併送件時免等主管審核，P.68）
     </div>
   </div>
 
   <!-- 任務一：新加保 -->
   <div class="sec-box">
     <div class="sec-title blue">
-      <span>壹、社員【新加保】作業流程（依社員繳費方式選擇對應欄位）</span>
-      <span class="badge">簡報 P.13~P.41、P.112~P.124</span>
+      <span>壹、社員【新加保】作業流程（依社員繳交互助費方式選擇對應欄位）</span>
+      <span class="badge">簡報 P.13~P.24、P.98~P.124</span>
     </div>
     <div class="sec-body">
       <div class="pay-grid">
-        <!-- 1. 現金 -->
+        <!-- 1. 現金收款 -->
         <div class="pay-card cash">
           <div class="pay-head">
-            <span>💵 方式 A：現場付現金</span>
-            <span class="tag">標準流程</span>
+            <span>💵 付款 A：現金收款</span>
+            <span class="tag">安基 ➔ 臨櫃收現</span>
           </div>
           <ul class="step-list">
-            <li><span class="step-num">1</span><span>收妥社員現金，並請社員於要保書簽名。</span></li>
-            <li><span class="step-num">2</span><span>進<b>【安基系統 ➔ 互助基金 ➔ 要保申請】</b>點選右上方「新增」。</span></li>
-            <li><span class="step-num">3</span><span>輸入身分證、勾選產品、填寫受益人與體況告知，按「儲存」。</span></li>
-            <li><span class="step-num">4</span><span>繳款方式選<b>「現金」</b>➔ 按<b>「確認」</b>。</span></li>
-            <li><span class="step-num">5</span><span><span class="stop-pill">🛑 請主管審核</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審核通過。</span></li>
-            <li><span class="step-num">6</span><span>至<b>【查詢作業】</b>確認狀態變更為<b>「待要保合併」</b>即完成收件。</span></li>
+            <li><span class="step-num">1</span><span>進<b>【安基作業 ➔ 協會代辦互助基金 ➔ 加保申請名冊】</b>點右上角<b>「＋」</b>新增 (P.9~13)。</span></li>
+            <li><span class="step-num">2</span><span>選擇<b>「申請方案」</b>（年度、計畫）與<b>「申請人」</b>，填寫<b>「職業、職稱」</b>(P.14~17)。</span></li>
+            <li><span class="step-num">3</span><span>選<b>「受益人分配方式」</b>並填明細，輸入補助金額與<b>「預計生效日」</b>(P.18~20)。</span></li>
+            <li><span class="step-num">4</span><span>付款方式選<b>「現金收款」</b>➔ 先點<b>「暫存」</b>再按<b>「送出」</b>(P.22)。</span></li>
+            <li><span class="step-num">5</span><span><span class="sys-pill">切換至臨櫃作業</span> 點<b>【社員搜尋】</b>輸入帳號並點<b>「選擇」</b>(P.98~101)。</span></li>
+            <li><span class="step-num">6</span><span>進<b>【現金收款作業】</b>➔ <span class="stop-pill">🛑 移除無關項目</span> ➔ 點<b>「確認收款並列印收款單」</b>(P.102~106)。</span></li>
           </ul>
         </div>
 
         <!-- 2. 備轉金 -->
         <div class="pay-card res">
           <div class="pay-head">
-            <span>🏦 方式 B：扣社員備轉金</span>
-            <span class="tag">需確認餘額</span>
+            <span>🏦 付款 B：扣社員備轉金</span>
+            <span class="tag">安基 ➔ 會計確認</span>
           </div>
           <ul class="step-list">
-            <li><span class="step-num">1</span><span>先確認社員「備轉金帳戶」可用餘額是否足夠扣款。</span></li>
-            <li><span class="step-num">2</span><span>進<b>【安基系統 ➔ 互助基金 ➔ 要保申請】</b>點選右上方「新增」。</span></li>
-            <li><span class="step-num">3</span><span>輸入身分證、勾選產品、填寫受益人與體況告知，按「儲存」。</span></li>
-            <li><span class="step-num">4</span><span>繳款方式選<b>「備轉金」</b>➔ 勾選下方明細 ➔ 按<b>「確認」</b>。</span></li>
-            <li><span class="step-num">5</span><span><span class="stop-pill">🛑 請主管審核</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審核通過（系統自動扣減備轉金）。</span></li>
-            <li><span class="step-num">6</span><span>至<b>【查詢作業】</b>確認狀態變更為<b>「待要保合併」</b>即完成。</span></li>
+            <li><span class="step-num">1</span><span>進<b>【安基作業 ➔ 協會代辦互助基金 ➔ 加保申請名冊】</b>點右上角<b>「＋」</b>新增 (P.13)。</span></li>
+            <li><span class="step-num">2</span><span>選擇<b>「申請方案」</b>與<b>「申請人」</b>，填寫<b>「職業、職稱」</b>及<b>「受益人、預計生效日」</b>(P.14~20)。</span></li>
+            <li><span class="step-num">3</span><span>付款方式選<b>「備轉金」</b>（若有群組可選扣款成員），確認下方顯示<b>「結餘」</b>(P.23)。</span></li>
+            <li><span class="step-num">4</span><span>先點<b>「暫存」</b>再按<b>「送出」</b>，系統自動產生備轉金轉帳傳票 (P.107)。</span></li>
+            <li><span class="step-num">5</span><span><span class="sys-pill">切換至會計作業</span> 點左側<b>【傳票確認作業】</b>(P.108~109)。</span></li>
+            <li><span class="step-num">6</span><span>（若查無傳票請主管至<b>【審核作業】</b>審過）找到傳票點<b>「通過並列印」</b>即完成 (P.110~111)。</span></li>
           </ul>
         </div>
 
         <!-- 3. 應付代收 -->
         <div class="pay-card pay">
           <div class="pay-head">
-            <span>🔄 方式 C：應付代收</span>
-            <span class="tag">⚠️ 需先開立傳票</span>
+            <span>🔄 付款 C：應付代收</span>
+            <span class="tag">⚠️ 先至會計開傳票</span>
           </div>
           <ul class="step-list">
-            <li><span class="step-num">1</span><span><span class="sys-pill">先至會計作業</span> 進<b>【會計作業 ➔ 開立傳票】</b>新增（轉帳支出），將保費轉入<b>「應付代收款-安基」</b>（借：依需求選科目 ／ 貸：代收互助基金），摘要填社員姓名。</span></li>
-            <li><span class="step-num">2</span><span><span class="stop-pill">🛑 主管審核 1</span> 請主管至<b>【會計作業 ➔ 審核作業】</b>審過此傳票（審過後安基結餘才會顯示金額）。</span></li>
-            <li><span class="step-num">3</span><span><span class="sys-pill">切回安基系統</span> 進<b>【互助基金 ➔ 要保申請】</b>新增要保書並按儲存。</span></li>
-            <li><span class="step-num">4</span><span>繳款選<b>「應付代收」</b>➔ 勾選剛才轉入之明細 ➔ 按<b>「確認」</b>。</span></li>
-            <li><span class="step-num">5</span><span><span class="stop-pill">🛑 主管審核 2</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審核通過。</span></li>
-            <li><span class="step-num">6</span><span><span class="sys-pill">返回會計作業</span> 進<b>【開立傳票】</b>將系統產生之「轉帳傳票」按<b>確認</b> ➔ <span class="stop-pill">🛑 主管審核 3</span> 至<b>【會計審核】</b>審過即完成入帳。</span></li>
+            <li><span class="step-num">1</span><span><span class="sys-pill">① 先至會計作業</span> 進<b>【傳票管理 ➔ 開立傳票】</b>（支出轉帳傳票）點<b>「新增傳票項目」</b>(P.112~114)。</span></li>
+            <li><span class="step-num">2</span><span><b>借方：</b>選<b>「社員」</b>輸入社員帳號、依實際需求選擇會計科目、輸入應繳金額、選<b>「借方」</b>確定 (P.115)。</span></li>
+            <li><span class="step-num">3</span><span><b>貸方：</b>再點新增，同樣選<b>「社員」</b>輸入帳號、選<b>「其他會計科目 ➔ 代收互助基金(21514/21515)」</b>、同金額、選<b>「貸方」</b>➔ 按<b>「送出」</b>(P.116~119)。</span></li>
+            <li><span class="step-num">4</span><span><span class="sys-pill">② 切回安基作業</span> 於加保畫面選<b>「應付代收」</b>，確認下方<b>「結餘」</b>有金額 ➔ 先點<b>「暫存」</b>再按<b>「送出」</b>(P.120)。</span></li>
+            <li><span class="step-num">5</span><span><span class="sys-pill">③ 返回會計作業</span> 進<b>【傳票確認作業】</b>（待主管審過後）點<b>「通過並列印」</b>即完成 (P.121~124)。</span></li>
           </ul>
         </div>
       </div>
       <div class="warn-strip">
-        💡 <b>新加保實務提醒：</b>① 若同一社員「當日加保 2 張以上」，每張保單均需各自獨立完成上述流程。 ② 於「待要保合併」前若需更正資料，可至【要保申請】直接點選「修改」或「作廢」（完成後亦需請主管審核）。
+        💡 <b>新加保防呆要點：</b>① 受益人若指定僅 1 人，分配方式選「平均分配」或「依照順序」皆可 (P.19)。 ② 臨櫃現金收款時，務必將社員名下非本次互助基金的其他待繳項目點選<b>【移除】</b>(P.104)。
       </div>
     </div>
   </div>
 
-  <!-- 任務二：年度續保 與 修改社員資料 -->
+  <!-- 任務二：年度續保 與 任務三：調整加保資料 / 基本資料查詢 -->
   <div class="two-col">
     <div class="sec-box">
       <div class="sec-title green">
-        <span>貳、【年度續保】作業流程</span>
-        <span class="badge">簡報 P.81~P.106</span>
+        <span>貳、【年度續保】匯入續約名冊與批次送出</span>
+        <span class="badge">簡報 P.25~P.31、P.45~P.47</span>
       </div>
       <div class="sec-body">
         <ul class="step-list">
-          <li><span class="step-num">1</span><span>進<b>【互助基金 ➔ 續保作業】</b>，篩選狀態<b>「續保中」</b>，檢視當年度續保名單與金額。</span></li>
-          <li><span class="step-num">2</span><span>若社員<b>「本年度不續保」</b>：勾選該筆 ➔ 按<b>「不續保」</b>➔ <span class="stop-pill">🛑 請主管審核</span> 至審核作業審過。</span></li>
-          <li><span class="step-num">3</span><span>若以<b>「應付代收」</b>繳納續保費：同樣<b>先至【會計作業】開立傳票並請主管審過</b>，再返回續保作業。</span></li>
-          <li><span class="step-num">4</span><span>勾選續保社員 ➔ 選擇繳款方式（現金 / 備轉金 / 應付代收）➔ 按<b>「確認」</b>。</span></li>
-          <li><span class="step-num">5</span><span><span class="stop-pill">🛑 請主管審核</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審過（若用應付代收，需再回會計確認傳票並請主管審過）。</span></li>
-          <li><span class="step-num">6</span><span>審過後狀態變更為<b>「待續保合併」</b>，後續流程與新加保相同（合併作業 ➔ 送協會 ➔ 請款）。</span></li>
+          <li><span class="step-num">1</span><span>進<b>【安基作業 ➔ 協會代辦互助基金 ➔ 加保申請名冊】</b>，點選上方藍色<b>「匯入續約名冊」</b>按鈕 (P.27)。</span></li>
+          <li><span class="step-num">2</span><span>於彈出視窗選擇欲續保之<b>「年度」</b>，再點選<b>「匯入」</b>(P.28)。</span></li>
+          <li><span class="step-num">3</span><span>將本次要續約的社員名單<b>「打勾」</b>起來 (P.29)。</span></li>
+          <li><span class="step-num">4</span><span>點選<b>「確認送出加保申請」</b>➔ 再點<b>「回到加保申請名冊」</b>(P.30~31)。</span></li>
+          <li><span class="step-num">5</span><span>若需變更付款方式或受益人，請依右側「參、調整加保資料」步驟修改（單筆鉛筆修改或 Excel 批次匯出入）。</span></li>
+          <li><span class="step-num">6</span><span>檢查列表中狀態為<b>「未送出」</b>之資料，勾選後點選上方<b>「批次送出」</b>，確認全數轉為<b>「已送出」</b>(P.45~47)。</span></li>
         </ul>
       </div>
     </div>
 
     <div class="sec-box">
       <div class="sec-title purple">
-        <span>參、變更社員【受益人 / 地址電話】</span>
-        <span class="badge">簡報 P.107~P.111</span>
+        <span>參、【調整加保資料】與查看基金基本資料</span>
+        <span class="badge">簡報 P.4~P.8、P.32~P.44</span>
       </div>
       <div class="sec-body">
         <table class="flow-table">
           <tr>
-            <th>變更地址、電話</th>
-            <td>請直接至<b>【社員系統】</b>修改，修改後<b>隔日</b>安基系統即會自動同步更新。</td>
+            <th>單筆手動調整<br><span style="font-size:8pt;color:#64748b;">(P.32~P.37)</span></th>
+            <td>於【加保申請名冊】點選該社員右側<b>「綠色鉛筆」</b>➔ 修改付款方式（如改為應付代收）或資料 ➔ <b>先點「暫存」再按「送出」</b>➔ 確認狀態變為<b>「已送出」</b>。</td>
           </tr>
           <tr>
-            <th>變更受益人、<br>指定聯絡人</th>
+            <th>多筆批次調整<br><span style="font-size:8pt;color:#64748b;">(P.38~P.44)</span></th>
             <td>
-              1. 進<b>【互助基金 ➔ 基本資料】</b>查詢該名社員<br>
-              2. 切換至「基金基本資料」或「有效基金」頁籤<br>
-              3. 點選<b>「修改」</b>更新資料並按確認<br>
-              4. <span class="stop-pill">🛑 請主管審核</span> 請主管至<b>【審核作業】</b>審核通過即生效。
+              1. 於【加保申請名冊】勾選多筆資料 ➔ 點<b>「匯出名冊」</b>下載 Excel<br>
+              2. 於 Excel 將付款方式整批改為「應付代收」並存檔 (P.40~41)<br>
+              3. 回系統點<b>「匯入名冊」</b>上傳該 Excel ➔ 勾選未送出資料按<b>「批次送出」</b>。
             </td>
           </tr>
         </table>
         <div class="danger-strip">
-          ⚠️ <b>備註：</b>基本資料之「要保紀錄」與「帳戶價值」僅供查詢；當年度保費與投保年齡上限請至<b>【產品設定】</b>查閱。
+          🔍 <b>查資格與各計畫互助費 (P.4~P.8)：</b>進【協會代辦互助基金】點選該基金右側<b>「綠色鉛筆」</b>，即可查看【基本資料】年齡限制與【互助費與經辦費明細】。
         </div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    第 1 頁 / 共 2 頁（正面：新加保 3 大收款流程、年度續保、資料變更） ── 電腦版可開啟 index.html 使用「專職實務操作引導系統」逐步對照畫面操作
+    第 1 頁 / 共 2 頁（正面：新加保 3 大付款流程、年度續保匯入、單筆與多筆資料調整） ── 電腦與手機可開啟 index.html 使用「專職實務操作引導系統」逐步對照紅框截圖
   </div>
 </div>
 
 <!-- ==================== PAGE 2: 背面 (合併送件 + 請款 + 協會核保沖銷 + 常見問題 FAQ) ==================== -->
 <div class="page">
   <div class="header">
-    <h1>📦 安基互助基金 ── 專職人員實務操作速查卡（背面）</h1>
-    <div class="sub">收款後流程：合併送件 ➔ 請款匯款 ➔ 協會核保結案</div>
+    <h1>📦 協會代辦互助基金（安基作業）── 專職人員實務操作速查卡（背面）</h1>
+    <div class="sub">名冊建檔後：合併送件 ➔ 建立請款單 ➔ 自動沖銷結案</div>
   </div>
 
-  <!-- 任務四：合併作業與請款 -->
+  <!-- 任務四：合併送件、送至協會與建立請款單 -->
   <div class="sec-box">
     <div class="sec-title amber">
-      <span>肆、收款完成後：【合併送協會 ＋ 請款匯款】流程（新加保、續保皆適用）</span>
-      <span class="badge">簡報 P.42~P.61、P.89~P.101</span>
+      <span>肆、名冊狀態皆為「已送出」後：【預覽名冊 ➔ 合併送件 ➔ 送至協會 ➔ 建立請款單】</span>
+      <span class="badge">簡報 P.48~P.80</span>
     </div>
     <div class="sec-body">
       <table class="flow-table">
         <tr>
-          <th>步驟 ①：合併名冊<br><span style="font-size:8.3pt;color:#64748b;">【互助基金 ➔ 合併作業】</span></th>
+          <th>步驟 ①：預覽與合併送件<br><span style="font-size:8pt;color:#64748b;">【加保申請名冊 P.48~58】</span></th>
           <td>
-            1. 進<b>【合併作業】</b>，篩選<b>「待要保合併」</b>（續保則選「待續保合併」）。<br>
-            2. <b>勾選</b>本次欲一併送件之社員名單（可多筆勾選）➔ 按右上方<b>「合併」</b>產生合併批號。<br>
-            3. <span class="stop-pill">🛑 請主管審核 1</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審核通過，狀態將變更為<b>「已合併」</b>。
+            1. 於<b>【加保申請名冊】</b>點左上角「☐」全選 ➔ 先點<b>「預覽名冊」</b>下載 PDF 詳加核對所有社員加保資料是否正確 (P.48~52)。<br>
+            2. 確認無誤後，再次點左上角「☐」全選 ➔ 點選上方<b>「合併送件」</b>(P.54~57) ➔ 點左側選單進入<b>【加退保合併送件】</b>(P.58)。
           </td>
         </tr>
         <tr>
-          <th>步驟 ②：送至協會<br><span style="font-size:8.3pt;color:#64748b;">【互助基金 ➔ 合併作業】</span></th>
+          <th>步驟 ②：送審查與送協會<br><span style="font-size:8pt;color:#64748b;">【加退保合併送件 P.59~70】</span></th>
           <td>
-            1. 返回<b>【合併作業】</b>，篩選狀態<b>「已合併」</b> ➔ 點開該批號按<b>「列印」</b>印出要保書/名冊，連同紙本簽名文件寄送協會。<br>
-            2. 於畫面勾選該批號 ➔ 點選<b>「送協會」</b>。<br>
-            3. <span class="stop-pill">🛑 請主管審核 2</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審核通過，狀態將變更為<b>「已送協會」</b>。
+            1. 點該筆合併資料右側<b>「綠色鉛筆」</b>(P.59) ➔ 點<b>「列印名冊」</b>(P.60~62) 與<b>「產生繳費清單」</b>(P.63~65) 下載確認。<br>
+            2. 點選<b>「確認名單，送主管審查」</b>，狀態變為「已送出審查」(P.66~67) ➔ <span class="stop-pill">🛑 請主管審核</span> 請主管至<b>【審核作業】</b>審過（C級社免等，P.68）。<br>
+            3. 主管審過後，重新點進該筆【加退保合併送件】➔ 點選<b>「送至協會」</b>，狀態變為<b>「已送至協會」</b>(P.69~70)！
           </td>
         </tr>
         <tr>
-          <th>步驟 ③：請款與傳票確認<br><span style="font-size:8.3pt;color:#64748b;">【合併作業 ➔ 會計作業】</span></th>
+          <th>步驟 ③：建立請款單與傳票<br><span style="font-size:8pt;color:#64748b;">【請款作業 ➔ 會計 P.71~80】</span></th>
           <td>
-            1. 返回<b>【合併作業】</b>，篩選<b>「已送協會」</b>➔ 勾選該批號 ➔ 點選<b>「請款」</b>。<br>
-            2. <span class="stop-pill">🛑 請主管審核 3</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審過請款（系統將自動拋轉傳票至會計作業）。<br>
-            3. <span class="sys-pill">切換至會計作業</span> 進<b>【會計作業 ➔ 開立傳票】</b>選取該張請款傳票，點進按<b>「確認」</b>。<br>
-            4. <span class="stop-pill">🛑 請主管審核 4</span> 請主管至<b>【會計作業 ➔ 審核作業】</b>審過傳票 ➔ 由出納辦理匯款予安基協會。
+            1. 點選<b>「建立請款單」</b>自動跳至【請款作業】(P.72) ➔「1.請款單基本資料」選<b>【零用金】或【匯款】</b>填備註按<b>「下一步」</b>(P.73)。<br>
+            2.「2.列印及輸入審查結果」點<b>「列印紙本請款單」</b>交主管簽核 ➔ 點<b>「上傳審核簽名後請款單」</b>➔ 審核結果勾選<b>「通過」</b>按<b>「送出」</b>(P.74)。<br>
+            3.「3.會計開立傳票」點<b>「開立傳票」</b>(P.75)：借方（<code>11514 團體意外險墊款</code>）系統已自動帶出 (P.76)！請點<b>「新增傳票項目」</b>新增<b>貸方</b>：對象選<b>【社】</b>、依實際需求選擇會計科目（如 <code>110122 零用金</code>）、輸入總金額、選<b>【貸方】</b>按確定 (P.77) ➔ 點右下角<b>「送出」</b>並列印傳票 (P.78~80)。
           </td>
         </tr>
       </table>
@@ -504,26 +500,29 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   <!-- 任務五：協會核保通過後自動沖銷結案 -->
   <div class="sec-box">
     <div class="sec-title green">
-      <span>伍、協會通知「核保通過 / 不通過」後：【自動沖銷結案】流程</span>
-      <span class="badge">簡報 P.62~P.80、P.102~P.106</span>
+      <span>伍、查看核保狀態與「加保通過」後：【自動沖銷結案 ＆ 檢視三張傳票】</span>
+      <span class="badge">簡報 P.81~P.95、P.125~P.132</span>
     </div>
     <div class="sec-body">
       <table class="flow-table">
         <tr>
-          <th>情況 A：全數核保通過<br><span style="color:#15803d;font-size:8.5pt;">（標準結案流程）</span></th>
+          <th>步驟 ①：查看核保狀態<br><span style="color:#15803d;font-size:8pt;">【帳務處理 P.81~86】</span></th>
           <td>
-            1. 進<b>【互助基金 ➔ 合併作業】</b>，點開該批號確認全數為「通過」，點選<b>「核保通過」</b>。<br>
-            2. <span class="stop-pill">🛑 請主管審核 1</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審過（系統將自動拋出沖銷傳票至會計作業）。<br>
-            3. <span class="sys-pill">切換至會計作業</span> 進<b>【會計作業 ➔ 開立傳票】</b>選取自動沖銷傳票並按<b>「確認」</b>。<br>
-            4. <span class="stop-pill">🛑 請主管審核 2</span> 請主管至<b>【會計作業 ➔ 審核作業】</b>審過傳票 ➔ <b>全案正式生效結案。</b>
+            進<b>【安基作業 ➔ 協會代辦互助基金 ➔ 帳務處理】</b>(P.81~83)：送件後核保狀態會先顯示為<b>「處理中」</b>(P.84)；請等待協會核保完成、狀態變更為<b>「加保通過」</b>後，即可執行自動沖銷 (P.85~86)。
           </td>
         </tr>
         <tr>
-          <th>情況 B：部分或全部不通過<br><span style="color:#b91c1c;font-size:8.5pt;">（退件或退費處理）</span></th>
+          <th>步驟 ②：執行自動沖銷<br><span style="color:#15803d;font-size:8pt;">【安基 ➔ 會計 P.87~95】</span></th>
           <td>
-            1. 進<b>【合併作業】</b>點開該批號，將未通過人員改選<b>「不通過」</b>（或整批點選「核保不通過」）。<br>
-            2. <span class="stop-pill">🛑 請主管審核</span> 請主管至<b>【互助基金 ➔ 審核作業】</b>審過。<br>
-            3. <span class="sys-pill">切換至會計作業</span> 進<b>【會計作業 ➔ 開立傳票】</b>確認沖銷/退費傳票 ➔ <span class="stop-pill">🛑 請主管審核</span> 審過會計傳票並辦理退費。
+            1. 於<b>【帳務處理】</b>點左上角「☐」全選 ➔ 點上方<b>「自動沖銷」</b>➔ 於彈出視窗再點一次<b>「自動沖銷」</b>確認 (P.88~91)。<br>
+            2. <span class="sys-pill">切換至會計作業</span> 進<b>【傳票確認作業】</b>（若無傳票請主管至【審核作業】審過），將系統自動產生的沖銷傳票全數點選<b>「通過」</b>(P.92~94)。<br>
+            3. <span class="sys-pill">切回安基作業</span> 進<b>【帳務處理】</b>向右滑動底部橫條，確認「是否沖銷」欄位全部顯示為<b>「是」</b>即圓滿結案 (P.94~95)！
+          </td>
+        </tr>
+        <tr>
+          <th>補充：檢視三張傳票<br><span style="color:#475569;font-size:8pt;">【帳務處理 P.125~132】</span></th>
+          <td>
+            日後若需查閱傳票，可於<b>【帳務處理】</b>點選個別社員右側<b>「綠色鉛筆」</b>(P.126)，即可隨時點選檢視該社員之：①<b>收款傳票</b> (P.127~128)、②<b>墊付傳票</b> (P.129~130)、③<b>沖銷傳票</b>（借：21514 代收互助基金／貸：11514 墊款、41131 經辦收入，P.131~132）。
           </td>
         </tr>
       </table>
@@ -533,41 +532,41 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   <!-- 任務六：常見問題排除 FAQ -->
   <div class="sec-box">
     <div class="sec-title red">
-      <span>💡 陸、常見問題排除指南（6 大跨系統檢核要點）</span>
-      <span class="badge">實務常見狀況與處理方式</span>
+      <span>💡 陸、常見問題排除指南（6 大跨系統實務檢核要點）</span>
+      <span class="badge">簡報 P.24、P.66~P.69、P.104、P.133</span>
     </div>
     <div class="sec-body">
       <div class="faq-grid">
         <div class="faq-item">
-          <div class="faq-q">Q1：點選確認後，為什麼畫面持續停留在「待審核」無法進行下一步？</div>
-          <div class="faq-a">👉 需待<b>主管審核放行</b>。請通知主管至<b>【審核作業】</b>勾選並審核通過，重新整理畫面後即可進入下一階段。</div>
+          <div class="faq-q">Q1：為何在【會計作業 ➔ 傳票確認作業】找不到傳票？(P.133)</div>
+          <div class="faq-a">👉 該張互助基金相關傳票尚未經主管放行。請通知<b>【主管】</b>切換至<b>【審核作業】</b>檢視並審核通過後，【傳票確認作業】即會出現該傳票。</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Q2：繳款選擇「應付代收」時，為什麼下方結餘顯示為 0、無法勾選？</div>
-          <div class="faq-a">👉 請先至<b>【會計作業 ➔ 開立傳票】</b>開立轉帳傳票將款項轉入「代收互助基金」科目，並請<b>主管於會計作業審核通過</b>後，安基系統即會顯示結餘。</div>
+          <div class="faq-q">Q2：為何在【加退保合併送件】沒有顯示【送至協會】按鈕？(P.66~69)</div>
+          <div class="faq-a">👉 點選【確認名單，送主管審查】後，需請<b>【主管】</b>至<b>【審核作業】</b>將該筆名單與相關傳票審核通過，重新進入後即會顯示【送至協會】（C級社除外）。</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Q3：已於安基點選「請款」或「核保通過」，為什麼會計帳務尚未入帳？</div>
-          <div class="faq-a">👉 安基審核通過後會將傳票拋轉至會計系統，請<b>切換至【會計作業 ➔ 開立傳票】點選確認，並請主管審過會計傳票</b>即完成入帳。</div>
+          <div class="faq-q">Q3：付款方式選【應付代收】時，為何下方【結餘】顯示為 0？(P.24, 112)</div>
+          <div class="faq-a">👉 代表尚未將款項轉入該互助基金。請先至<b>【會計作業 ➔ 開立傳票】</b>開立支出轉帳傳票（借貸方皆需選<b>社員並輸入帳號</b>，貸方選 21514/21515 代收互助基金）。</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Q4：同一位社員當日同時投保 2 張互助基金，可否於同一筆建檔？</div>
-          <div class="faq-a">👉 <b>需分開建檔。</b>請於【要保申請】分別新增 2 筆、各自確認繳款並請主管審核；待狀態皆為「待要保合併」後，再一併勾選合併。</div>
+          <div class="faq-q">Q4：名冊已經點選【送至協會】，事後發現有錯怎麼辦？(P.133)</div>
+          <div class="faq-a">👉 點選【送至協會】後線上即鎖定無法退回。在核保通過前若要變更資料，<b>必須改送紙本向協會辦理（過程約需等待 1 個月）</b>，送出前務必先預覽名冊！</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Q5：剛建檔之要保書發現資料有誤，或社員取消投保時該如何處理？</div>
-          <div class="faq-a">👉 於合併送件前，可直接至<b>【要保申請】</b>選取該筆點選<b>「修改」或「作廢」</b>，完成後請主管至【審核作業】審過即可。</div>
+          <div class="faq-q">Q5：臨櫃【現金收款作業】帶出多筆金額時，該如何處理？(P.103~104)</div>
+          <div class="faq-a">👉 系統會一併帶出該社員名下其他待繳項目，請務必將「非本次代辦互助基金」的無關項目點選右側<b>【移除】</b>，再按確認收款並列印收款單。</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q">Q6：社員欲變更電話或通訊地址，為什麼無法在安基系統內直接修改？</div>
-          <div class="faq-a">👉 電話與地址係連動社員主檔，請直接至<b>【社員系統】</b>修改，修改後<b>隔日</b>安基系統即會自動同步更新。</div>
+          <div class="faq-q">Q6：請款單在「3.會計開立傳票」時，借方需要手動新增嗎？(P.76~77)</div>
+          <div class="faq-a">👉 <b>不需要！</b>借方（<code>11514 團體意外險墊款</code>）系統會自動帶出，您只需點【新增傳票項目】新增<b>貸方</b>（對象選<b>【社】</b>、依需求選科目如 110122 零用金）。</div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="footer">
-    第 2 頁 / 共 2 頁（背面：合併送協會、請款匯款、核保自動沖銷結案、常見問題排除指南） ── 儲蓄互助社 專職人員實務操作速查卡
+    第 2 頁 / 共 2 頁（背面：預覽與合併送件、送至協會、建立請款單、自動沖銷結案、常見問題排除指南） ── 儲蓄互助社 專職人員實務操作速查卡
   </div>
 </div>
 

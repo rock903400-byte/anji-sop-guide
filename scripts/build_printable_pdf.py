@@ -21,7 +21,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
   <style>
     @page {
       size: A4 portrait;
-      margin: 10mm 11mm 10mm 11mm;
+      margin: 8.5mm 10.5mm 8.5mm 10.5mm;
     }
 
     * {
@@ -36,8 +36,8 @@ HTML_CONTENT = r"""<!DOCTYPE html>
       font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
       color: #0f172a;
       background: #ffffff;
-      font-size: 9.2pt;
-      line-height: 1.42;
+      font-size: 9pt;
+      line-height: 1.38;
     }
 
     .page-break {
@@ -345,7 +345,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <span>①【安基作業】建檔與送審</span>
         <span>P.4~70</span>
       </div>
-      <div class="flow-step"><span class="p-ref">P.4~8</span><strong>0. 查看基金基本資料</strong><br/>確認投保資格限制、各計畫互助費與經辦費</div>
+      <div class="flow-step"><span class="p-ref">P.4~8</span><strong>0. 查看基金基本資料</strong><br/>確認參加資格限制、各計畫互助費與經辦費</div>
       <div class="flow-step"><span class="p-ref">P.9~24</span><strong>1A. 新加保單筆建檔</strong><br/>選方案、社員、受益人、預計生效日、付款方式</div>
       <div class="flow-step"><span class="p-ref">P.25~31</span><strong>1B. 續保匯入續約名冊</strong><br/>選年度匯入 ➔ 勾選續約社員 ➔ 確認送出申請</div>
       <div class="flow-step"><span class="p-ref">P.32~44</span><strong>2. 資料調整（可略）</strong><br/>單筆鉛筆修改，或多筆匯出 Excel 修改再匯入</div>
@@ -370,7 +370,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <span>P.69~95</span>
       </div>
       <div class="flow-step"><span class="p-ref">P.69~70</span><strong>5. 點選【送至協會】</strong><br/>主管審核通過後，回加退保合併送件點選送至協會</div>
-      <div class="flow-step" style="border-left-color:#b45309;"><span class="p-ref">P.71~80</span><strong>6. 建立請款單＆墊付傳票</strong><br/>選零用金/匯款 ➔ 紙本送審 ➔ 會計開立墊付傳票（借：意外險墊款／貸：零用金或銀行存款）</div>
+      <div class="flow-step" style="border-left-color:#b45309;"><span class="p-ref">P.71~80</span><strong>6. 建立請款單＆墊付傳票</strong><br/>選零用金/匯款 ➔ 紙本簽核並上傳 ➔ 會計開立墊付傳票（借：系統帶出意外險墊款／貸：選【社】及零用金等科目）</div>
       <div class="flow-step"><span class="p-ref">P.81~86</span><strong>7. 查看核保狀態（帳務處理）</strong><br/>等待狀態由「處理中」變為<strong>【加保通過】</strong></div>
       <div class="flow-step" style="border-left-color:#047857;"><span class="p-ref">P.87~95</span><strong>8. 自動沖銷＆會計傳票確認</strong><br/>安基帳務處理全選【自動沖銷】➔ 會計【傳票確認作業】通過 ➔ 回安基確認「是否沖銷=是」</div>
       <div class="flow-step"><span class="p-ref">P.125~132</span><strong>9. 帳務處理檢視三張傳票</strong><br/>可隨時點鉛筆檢視：收款傳票、墊付傳票、沖銷傳票</div>
@@ -419,7 +419,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         </td>
         <td>
           <strong>扣抵社員備轉金餘額</strong><br/>
-          確認下方備轉金有結餘，於安基選【備轉金】暫存送出。
+          確認下方備轉金有結餘（若有群組可選擇要扣款的群組成員，P.23），於安基選【備轉金】暫存送出。
         </td>
         <td>
           ① <strong>【安基作業】</strong>付款方式選「備轉金」暫存並送出 (<span class="p-tag">P.23</span>, <span class="p-tag">P.107</span>)<br/>
@@ -441,8 +441,8 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         </td>
         <td>
           ① 先切換至<strong>【會計作業】</strong>➔【傳票管理】➔【開立傳票】（支出轉帳傳票）(<span class="p-tag">P.112~113</span>)<br/>
-          ② 點【新增傳票項目】輸入<strong>借方</strong>：選社員帳號、依實際需求選擇會計科目、輸入金額 (<span class="p-tag">P.114~115</span>)<br/>
-          ③ 再點【新增傳票項目】輸入<strong>貸方</strong>：選對應代收科目（如 <code>21515 代收重大疾病互助基金</code> 或 <code>21514 代收社員意外互助基金</code>）、同金額 ➔ 點【送出】(<span class="p-tag">P.116~119</span>)<br/>
+          ② 點【新增傳票項目】輸入<strong>借方</strong>：對象選【社員】並輸入社員帳號、依實際需求選擇會計科目、輸入金額 (<span class="p-tag">P.114~115</span>)<br/>
+          ③ 再點【新增傳票項目】輸入<strong>貸方</strong>：對象同樣選【社員】並輸入帳號、選對應代收科目（如 <code>21515 代收重大疾病互助基金</code> 或 <code>21514 代收社員意外互助基金</code>）、同金額 ➔ 點【送出】(<span class="p-tag">P.116~119</span>)<br/>
           ④ 回到<strong>【安基作業】</strong>確認下方【結餘】已顯示金額 ➔ 先點【暫存】再按【送出】(<span class="p-tag">P.120</span>)<br/>
           ⑤ 再次切換至<strong>【會計作業】</strong>➔【傳票確認作業】➔ 找到傳票點【通過並列印】(<span class="p-tag">P.121~124</span>)
         </td>
@@ -478,7 +478,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <td class="chk-box">☐</td>
         <td class="chk-step">Step 2</td>
         <td class="chk-mod"><span class="mod mod-anji">安基作業</span></td>
-        <td>點選欲查看的互助基金（例：社員團體意外互助基金）右側「綠色鉛筆」圖示：於【基本資料】查看投保限制，於【互助費與經辦費明細】查看各計畫保額與費用。</td>
+        <td>點選欲查看的互助基金（例：社員團體意外互助基金）右側「綠色鉛筆」圖示：於【基本資料】查看參加資格限制，於【互助費與經辦費明細】查看各計畫保障金額與費用。</td>
         <td class="chk-pages"><span class="p-tag">P.6 ~ P.8</span></td>
       </tr>
       <tr>
@@ -650,7 +650,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <td class="chk-box">☐</td>
         <td class="chk-step">Step 3</td>
         <td class="chk-mod"><span class="mod mod-mgr">主管審核</span></td>
-        <td>點選【確認名單，送主管審查】，畫面顯示【已送出審查】(<span class="p-tag">P.66~67</span>) ➔ 請主管至【審核作業】完成審查 (<span class="p-tag">P.68</span>)。</td>
+        <td>點選【確認名單，送主管審查】，畫面顯示【已送出審查】(<span class="p-tag">P.66~67</span>) ➔ 請主管至【審核作業】完成審查（註：若是 C 級社不需等主管審核過即可略過等待，<span class="p-tag">P.68</span>）。</td>
         <td class="chk-pages"><span class="p-tag">P.66 ~ P.68</span></td>
       </tr>
       <tr>
@@ -673,14 +673,14 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <td class="chk-box">☐</td>
         <td class="chk-step">Step 1</td>
         <td class="chk-mod"><span class="mod mod-claim">請款作業</span></td>
-        <td>於加退保合併送件點選【建立請款單】(<span class="p-tag">P.72</span>) ➔ 在「1.建立請款單」選【零用金】或【匯款】並填寫說明後按【下一步】(<span class="p-tag">P.73</span>) ➔ 在「2.列印紙本並輸入主管審查結果」列印送審並登錄結果 (<span class="p-tag">P.74</span>)。</td>
+        <td>於加退保合併送件點選【建立請款單】(<span class="p-tag">P.72</span>) ➔ 在「1.請款單基本資料」選【零用金】或【匯款】並填寫備註後按【下一步】(<span class="p-tag">P.73</span>) ➔ 在「2.列印及輸入審查結果」列印紙本交主管簽核、點【上傳審核簽名後請款單】、勾選【通過】按【送出】(<span class="p-tag">P.74</span>)。</td>
         <td class="chk-pages"><span class="p-tag">P.72 ~ P.74</span></td>
       </tr>
       <tr>
         <td class="chk-box">☐</td>
         <td class="chk-step">Step 2</td>
         <td class="chk-mod"><span class="mod mod-acc">會計作業</span></td>
-        <td>在「3.會計開立傳票」點選【開立傳票】➔【新增傳票項目】，輸入墊付分錄（例：借方 <code>11514 團體意外險墊款</code>／貸方 <code>110122 零用金</code> 或銀行存款）➔ 借貸平衡後點【送出】並列印傳票。</td>
+        <td>在「3.會計開立傳票」點選【開立傳票】（借方 <code>11514 團體意外險墊款</code> 系統已自動帶出，<span class="p-tag">P.76</span>）➔ 點【新增傳票項目】新增<strong>貸方</strong>：對象點選<strong>【社】</strong>、依實際需求選擇會計科目（如 <code>110122 零用金</code>）、輸入總金額、勾選<strong>【貸方】</strong>按確定 (<span class="p-tag">P.77</span>) ➔ 借貸平衡後點【送出】並列印傳票。</td>
         <td class="chk-pages"><span class="p-tag">P.75 ~ P.80</span></td>
       </tr>
       <tr>
@@ -889,10 +889,10 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <td><span class="p-tag">P.115~117</span></td>
       </tr>
       <tr>
-        <td><strong>2. 建立請款單墊付</strong><br/>（現金支出／轉帳傳票）</td>
-        <td><code>11514 團體意外險墊款</code></td>
-        <td><code>110122 零用金</code>（或銀行存款）</td>
-        <td><span class="p-tag">P.77, 130</span></td>
+        <td><strong>2. 建立請款單墊付</strong><br/>（請款單開立傳票）</td>
+        <td><code>11514 團體意外險墊款</code>（系統自動帶出）</td>
+        <td>對象選【社】＋依需求選擇科目（如 <code>110122 零用金</code>）</td>
+        <td><span class="p-tag">P.76~77, 130</span></td>
       </tr>
       <tr>
         <td><strong>3. 核保通過後自動沖銷</strong><br/>（系統自動產生沖銷傳票）</td>
