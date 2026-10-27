@@ -360,7 +360,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
       </div>
       <div class="flow-step" style="border-left-color:#0f766e;"><span class="p-ref">P.98~106</span><strong>付款 A：現金收款（臨櫃作業）</strong><br/>社員搜尋 ➔ 現金收款作業 ➔ <strong>移除無關項目</strong> ➔ 確認收款並列印收款單</div>
       <div class="flow-step" style="border-left-color:#6d28d9;"><span class="p-ref">P.107~111</span><strong>付款 B：備轉金（會計作業）</strong><br/>安基選備轉金送出 ➔ 切換【會計作業】➔【傳票確認作業】➔ 通過並列印</div>
-      <div class="flow-step" style="border-left-color:#dc2626;"><span class="p-ref">P.112~124</span><strong>付款 C：應付代收（先開傳票！）</strong><br/>① 先至【會計作業➔開立傳票】借：社員活期存款／貸：代收互助基金<br/>② 回【安基作業】確認有<strong>結餘</strong>後暫存並送出<br/>③ 再至【會計作業➔傳票確認作業】通過並列印</div>
+      <div class="flow-step" style="border-left-color:#dc2626;"><span class="p-ref">P.112~124</span><strong>付款 C：應付代收（先開傳票！）</strong><br/>① 先至【會計作業➔開立傳票】借：依需求選科目／貸：代收互助基金<br/>② 回【安基作業】確認有<strong>結餘</strong>後暫存並送出<br/>③ 再至【會計作業➔傳票確認作業】通過並列印</div>
       <div class="flow-step" style="border-left-color:#b91c1c;"><span class="p-ref">P.68, 133</span><strong>主管【審核作業】放行</strong><br/>主管審核合併送件名單與互助基金相關傳票</div>
     </div>
 
@@ -436,12 +436,12 @@ HTML_CONTENT = r"""<!DOCTYPE html>
           <span class="p-tag">P.24</span> <span class="p-tag">P.112~124</span>
         </td>
         <td>
-          <strong>由社員活存轉入代收</strong><br/>
+          <strong>由會計轉帳轉入代收</strong><br/>
           <span class="warn-text">必須先去【會計作業】開立支出轉帳傳票</span>，安基才會有結餘！
         </td>
         <td>
           ① 先切換至<strong>【會計作業】</strong>➔【傳票管理】➔【開立傳票】（支出轉帳傳票）(<span class="p-tag">P.112~113</span>)<br/>
-          ② 點【新增傳票項目】輸入<strong>借方</strong>：選社員帳號、科目如 <code>11211 活期存款</code>、金額 (<span class="p-tag">P.114~115</span>)<br/>
+          ② 點【新增傳票項目】輸入<strong>借方</strong>：選社員帳號、依實際需求選擇會計科目、輸入金額 (<span class="p-tag">P.114~115</span>)<br/>
           ③ 再點【新增傳票項目】輸入<strong>貸方</strong>：選對應代收科目（如 <code>21515 代收重大疾病互助基金</code> 或 <code>21514 代收社員意外互助基金</code>）、同金額 ➔ 點【送出】(<span class="p-tag">P.116~119</span>)<br/>
           ④ 回到<strong>【安基作業】</strong>確認下方【結餘】已顯示金額 ➔ 先點【暫存】再按【送出】(<span class="p-tag">P.120</span>)<br/>
           ⑤ 再次切換至<strong>【會計作業】</strong>➔【傳票確認作業】➔ 找到傳票點【通過並列印】(<span class="p-tag">P.121~124</span>)
@@ -792,7 +792,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <td class="chk-box">☐</td>
         <td class="chk-step">Step 1~4</td>
         <td class="chk-mod"><span class="mod mod-acc">會計作業</span></td>
-        <td>先切換到【會計作業】(<span class="p-tag">P.112</span>) ➔ 點選【傳票管理】下的【開立傳票】（支出轉帳傳票，<span class="p-tag">P.113</span>）➔ 點選【新增傳票項目】(<span class="p-tag">P.114</span>) ➔ 輸入第一筆分錄：選擇社員、輸入社員帳號、調整會計科目（如 <code>11211 活期存款</code>）、輸入應繳金額、選<strong>【借方】</strong>按確定 (<span class="p-tag">P.115</span>)。</td>
+        <td>先切換到【會計作業】(<span class="p-tag">P.112</span>) ➔ 點選【傳票管理】下的【開立傳票】（支出轉帳傳票，<span class="p-tag">P.113</span>）➔ 點選【新增傳票項目】(<span class="p-tag">P.114</span>) ➔ 輸入第一筆分錄：選擇社員、輸入社員帳號、依實際需求調整會計科目、輸入應繳金額、選<strong>【借方】</strong>按確定 (<span class="p-tag">P.115</span>)。</td>
         <td class="chk-pages"><span class="p-tag">P.112 ~ P.115</span></td>
       </tr>
       <tr>
@@ -863,7 +863,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
       <span><span class="p-tag">P.24</span> <span class="p-tag">P.112~120</span></span>
     </div>
     <div class="faq-a">
-      <strong>解答：</strong>代表費用尚未轉到該互助基金。請先至<strong>【會計作業 ➔ 傳票管理 ➔ 開立傳票】</strong>開立支出轉帳傳票（借：社員活期存款／貸：代收互助基金），送出後回到【安基作業】就會顯示【結餘】，此時即可先點【暫存】再按【送出】。
+      <strong>解答：</strong>代表費用尚未轉到該互助基金。請先至<strong>【會計作業 ➔ 傳票管理 ➔ 開立傳票】</strong>開立支出轉帳傳票（借：依實際需求選擇會計科目／貸：代收互助基金），送出後回到【安基作業】就會顯示【結餘】，此時即可先點【暫存】再按【送出】。
     </div>
   </div>
 
@@ -884,7 +884,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
     <tbody>
       <tr>
         <td><strong>1. 應付代收前置轉帳</strong><br/>（支出轉帳傳票）</td>
-        <td><code>11211 活期存款</code>（選擇社員帳號）</td>
+        <td>依實際需求選擇會計科目（選擇社員帳號）</td>
         <td><code>21514 代收社員意外互助基金</code> 或<br/><code>21515 代收重大疾病互助基金</code></td>
         <td><span class="p-tag">P.115~117</span></td>
       </tr>

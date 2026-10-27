@@ -6,7 +6,7 @@ WORKSPACE = r"C:\Users\user\Desktop\新增資料夾 (2)\安基作業教學_20260
 HTML_OUT = os.path.join(WORKSPACE, "cheatsheet_temp.html")
 OLD_PDF = os.path.join(WORKSPACE, "安基作業教學_專職極簡懶人卡_A4大字版.pdf")
 PDF_OUT = os.path.join(WORKSPACE, "安基作業教學_專職實務速查卡_A4大字版.pdf")
-ARTIFACT_DIR = r"C:\Users\user\.gemini\antigravity-cli\brain\15b26e3d-3043-4c9f-87b0-703c699c2565"
+ARTIFACT_DIR = r"C:\Users\user\.gemini\antigravity-cli\brain\6a8645fc-0948-406d-9953-44608fc35fad"
 
 if os.path.exists(OLD_PDF):
     try:
@@ -386,11 +386,11 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         <!-- 3. 應付代收 -->
         <div class="pay-card pay">
           <div class="pay-head">
-            <span>🔄 方式 C：活存轉應付代收</span>
+            <span>🔄 方式 C：應付代收</span>
             <span class="tag">⚠️ 需先開立傳票</span>
           </div>
           <ul class="step-list">
-            <li><span class="step-num">1</span><span><span class="sys-pill">先至會計作業</span> 進<b>【會計作業 ➔ 開立傳票】</b>新增（轉帳支出），將保費由社員<b>「活存」轉入「應付代收款-安基」</b>，摘要填社員姓名。</span></li>
+            <li><span class="step-num">1</span><span><span class="sys-pill">先至會計作業</span> 進<b>【會計作業 ➔ 開立傳票】</b>新增（轉帳支出），將保費轉入<b>「應付代收款-安基」</b>（借：依需求選科目 ／ 貸：代收互助基金），摘要填社員姓名。</span></li>
             <li><span class="step-num">2</span><span><span class="stop-pill">🛑 主管審核 1</span> 請主管至<b>【會計作業 ➔ 審核作業】</b>審過此傳票（審過後安基結餘才會顯示金額）。</span></li>
             <li><span class="step-num">3</span><span><span class="sys-pill">切回安基系統</span> 進<b>【互助基金 ➔ 要保申請】</b>新增要保書並按儲存。</span></li>
             <li><span class="step-num">4</span><span>繳款選<b>「應付代收」</b>➔ 勾選剛才轉入之明細 ➔ 按<b>「確認」</b>。</span></li>
@@ -544,7 +544,7 @@ HTML_CONTENT = r"""<!DOCTYPE html>
         </div>
         <div class="faq-item">
           <div class="faq-q">Q2：繳款選擇「應付代收」時，為什麼下方結餘顯示為 0、無法勾選？</div>
-          <div class="faq-a">👉 請先至<b>【會計作業 ➔ 開立傳票】</b>將社員活存轉入「應付代收款-安基」，並請<b>主管於會計作業審核通過</b>後，安基系統即會顯示結餘。</div>
+          <div class="faq-a">👉 請先至<b>【會計作業 ➔ 開立傳票】</b>開立轉帳傳票將款項轉入「代收互助基金」科目，並請<b>主管於會計作業審核通過</b>後，安基系統即會顯示結餘。</div>
         </div>
         <div class="faq-item">
           <div class="faq-q">Q3：已於安基點選「請款」或「核保通過」，為什麼會計帳務尚未入帳？</div>
